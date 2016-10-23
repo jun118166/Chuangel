@@ -11,7 +11,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 		<meta content="telephone=no" name="format-detection">
 		<title></title>
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style.rem.css" />
 		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
 		<script type="text/javascript">
 			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
@@ -107,7 +107,7 @@
 						<input type="tel" placeholder="请输入短信验证码" class="userinfoYzm">
 						<a href="javascript:void(0);" id="validCodeId">获取验证码</a>
 					</li>
-					<li class="tishi v1-1tishi1 err_city_district" style="display: none;">请选择所在地区</li>
+					<li class="tishi v1-1tishi1 err_validcode" style="display: none;">请输入手机验证码</li>
 					<li class="selectadd">
 						<p>
 							<span>
@@ -273,12 +273,61 @@
 					$('.err_real_name').hide();
 				}
 				if(phoneNum == '') {
+					$('.err_mobile').text('请输入手机号码');
 					$('.err_mobile').show();
 					return false;
 				} else {
 					$('.err_mobile').hide();
 				}
+				if(!IU.util.checkPhone(phoneNum)) {
+					$('.err_mobile').text('请输入正确的手机号码');
+					$('.err_mobile').show();
+					return false;
+				}
+				if($('.imgcode_code').length) {
+					if(imgcode_code == '') {
+						$('.err_imgcode').text('请输入图片验证码');
+						$('.err_imgcode').show();
+						return false;
+					} else {
+						if(imgcode_code.length != 4 || (imgcode_code.toLowerCase() != $('.yzmzm span').html().toLowerCase())) {
+							$('.err_imgcode').text('图形验证码错误');
+							$('.err_imgcode').show();
+							return false;
+						}
+					}
+				}
+
+				if($('.userinfoYzm').length) {
+					if(userinfoYzm == '') {
+						$('.err_validcode').show();
+						return false;
+					} else {
+						if(userinfoYzm.length != 6) {
+							$('.err_validcode').text('手机验证码错误');
+							$('.err_validcode').show();
+							return false;
+						} else {
+							$('.err_validcode').text('请输入手机验证码');
+							$('.err_validcode').hide();
+						}
+					}
+				}
+				if(city == '' || distrcit == '') {
+					$('.err_city_district').show();
+					return false;
+				} else {
+					$('.err_city_district').hide();
+				}
+				if(address == '' || address == ' ' || address == '请输入详细地址') {
+					$('.err_address').show();
+					return false;
+				} else {
+					$('.err_address').hide();
+				}
 			});
+
+			IU.util.sendMsg($('#validCodeId'), 60);
 		});
 	</script>
 

@@ -25,8 +25,8 @@ body .topfixed{position:fixed;top:0;z-index:9;width:100%}
 .kfzx img{margin-top:20px;width:40px;height:41px}
 .kfzx span{display:block;margin:0 auto;width:30px;color:#fff;font-size:24px;line-height:36px}
 .xiadan{position:relative;overflow:hidden;padding:0 30px 0 140px;background-color:#292b5b}
-.xiadan img{position:absolute;top:2pc;left:20px;width:84px;height:84px}
-.xiadan p{padding:2pc 0;background:url(../img/xiala.png) right center no-repeat;background-size:26px 1pc;line-height:42px}
+.xiadan img{position:absolute;top:32px;left:20px;width:84px;height:84px}
+.xiadan p{padding:32px 0;background:url(../img/xiala.png) right center no-repeat;background-size:35px 20px;line-height:42px}
 .xiadan p strong{color:#ff5000;font-weight:400;font-size:30px}
 .xiadan p span,.xiadan p strong{display:block;overflow:hidden;height:42px}
 .xiadan p span{color:#fff;font-size:24px}
@@ -41,29 +41,24 @@ footer li{float:left;width:33.3%;height:70px;font-size:26px;line-height:70px}
 .shili .swiper-slide p{position:relative;float:left;overflow:hidden;width:33.3333%;height:184px;text-align:center}
 .shili .swiper-slide p img{display:inline-block;width:60px;height:70px}
 .shili .swiper-slide p span{clear:both;display:block;height:60px;font-size:26px;line-height:60px}
-.shili .swiper-slide p strong{position:absolute;top:0;right:0;width:1px;height:7pc;background:url(../img/shuxian.png) no-repeat;background-size:7pc 2px}
+.shili .swiper-slide p strong{position:absolute;top:0;right:0;width:1px;height:7px;background:url(../img/shuxian.png) no-repeat;background-size:7px 2px}
 .xinxi{position:relative;padding:18px 10px 10px}
 .xinxi .arrowtop{position:absolute;top:-18px;left:40px;width:44px;height:18px;background:url(../img/arrowtop.png) no-repeat;background-size:44px 18px}
 .xinxi li{position:relative;padding-bottom:20px;font-size:28px}
-.xinxi li input{width:100%;height:90px;border:0;-webkit-border-radius:6px;border-radius:6px;color:#333;text-indent:30px;font-size:28px}
-.xinxi .tishi{margin:-20px 0 20px;padding:0;width:100%;height:4pc;background:url(../img/tishired.png) 30px center no-repeat #fff2f2;background-size:24px 24px;color:red;text-align:left;text-indent:66px;font-size:24px;line-height:4pc}
+.xinxi li input{width:100%;height:90px;border:0;border-radius:6px;color:#333;text-indent:30px;font-size:28px}
+.xinxi .tishi{margin:-20px 0 20px;padding:0;width:100%;height:64px;background:url(../img/tishired.png) 30px center no-repeat #fff2f2;background-size:24px 24px;color:red;text-align:left;text-indent:66px;font-size:24px;line-height:64px}
 .xinxi .yzm,.yzmzm{padding-right:250px}
 .xinxi .yzm a,.yzmzm span{position:absolute;top:0;right:0;width:230px;height:90px}
-.yzmzm span{
-	background: #ebebeb;
-    text-align: center;
-    line-height: 90px;
-    color: #030580;
-    font-size: 30px;
-    letter-spacing: 8px;
-}
-.xinxi .yzm a{display:block;-webkit-border-radius:6px;border-radius:6px;background-color:#009cff;color:#fff;text-align:center;font-size:30px;line-height:90px}
+.yzmzm span{background:#ebebeb;color:#030580;letter-spacing:8px}
+.xinxi .yzm a,.yzmzm span{text-align:center;font-size:30px;line-height:90px}
+.xinxi .yzm a{display:block;border-radius:6px;background-color:#009cff;color:#fff}
+.xinxi .yzm .cxfs{background-color:#ccc}
 .selectadd{overflow:hidden}
 .selectadd p{float:left;width:50%}
 .selectadd p span{display:block;padding-right:20px}
-.selectadd select{overflow:hidden;margin-right:20px;width:100%;height:90px;border:0;-webkit-border-radius:6px;border-radius:6px;background:url(../img/selectadd.png) right center no-repeat #fff;background-size:50px 9pt;color:#444;text-indent:22px;font-size:28px}
-.xinxi .xiangxidizhi{padding:20px 30px;-webkit-border-radius:6px;border-radius:6px;background-color:#fff}
+.selectadd select{overflow:hidden;margin-right:20px;width:100%;height:90px;border:0;border-radius:6px;background:url(../img/selectadd.png) right center no-repeat #fff;background-size:50px 12px;color:#444;text-indent:22px;font-size:28px}
+.xinxi .xiangxidizhi{padding:20px 30px;border-radius:6px;background-color:#fff}
 .xinxi .xiangxidizhi .xiangxidizhi1{position:relative;padding-right:130px;line-height:50px}
-.xinxi .xiangxidizhi a{position:absolute;top:50%;right:30px;margin-top:-1pc;width:90pt;height:2pc;background:url(../img/add1.png) right center no-repeat;background-size:90pt 2pc}
-.chaxun{display:block;margin-top:40px;width:100%;height:86px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#292b5b;color:#fff;text-align:center;font-size:2pc;line-height:86px;-o-border-radius:6px;-ms-border-radius:6px}
-.xiadan .xiadancur{background:url(../img/xiala1.png) right center no-repeat;background-size:26px 1pc}
+.xinxi .xiangxidizhi a{position:absolute;top:50%;right:30px;margin-top:-16px;width:120px;height:32px;background:url(../img/add1.png) right center no-repeat;background-size:120px 32px}
+.chaxun{display:block;margin-top:40px;width:100%;height:86px;border-radius:6px;background-color:#292b5b;color:#fff;text-align:center;font-size:32px;line-height:86px;-o-border-radius:6px;-ms-border-radius:6px}
+.xiadan .xiadancur{background:url(../img/xiala1.png) right center no-repeat;background-size:32px 20px}
