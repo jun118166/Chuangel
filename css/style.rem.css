@@ -62,3 +62,61 @@ footer li{float:left;width:33.3%;height:1.75rem;font-size:0.65rem;line-height:1.
 .xinxi .xiangxidizhi a{position:absolute;top:50%;right:0.75rem;margin-top:-0.4rem;width:3rem;height:0.8rem;background:url(../img/add1.png) right center no-repeat;background-size:3rem .8rem}
 .chaxun{display:block;margin-top:1rem;width:100%;height:2.15rem;border-radius:6px;background-color:#292b5b;color:#fff;text-align:center;font-size:0.8rem;line-height:2.15rem;-o-border-radius:6px;-ms-border-radius:6px}
 .xiadan .xiadancur{background:url(../img/xiala1.png) right center no-repeat;background-size:.8rem .5rem}
+.logo{padding:2.25rem 0 0;text-align:center}
+.login{padding:0 .75rem}
+.login p{margin:0 auto;padding:1.75rem 0;width:14.5rem;background:url(../img/tishi1.png) left center no-repeat;background-size:.7rem .7rem;color:#999;text-align:center;font-size:.65rem}
+.v1-1tishi{width:100%;height:1.75rem;text-align:center;line-height:1.75rem}
+.v1-1tishi p{margin:0 .75rem;background-color:#fff2f2;color:red;font-size:.6rem}
+.gerenzhongxin{overflow:hidden;height:8.65rem;background-color:#292b5b;color:#fff;text-align:center}
+.gerenzhongxin strong{display:block;padding-top:1.5rem;height:2.9rem;font-weight:400;font-size:1rem;line-height:2.9rem}
+.gerenzhongxin a{display:inline-block;width:5.3rem;height:1.7rem;border:1px solid #fff;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;color:#fff;font-size:0.8rem;line-height:1.7rem;-o-border-radius:3px}
+.gerenxinxi{padding:.5rem 0 0;background-color:#fff}
+.gerenxinxi li{background:url(../img/hengxian.png) left bottom repeat-x;background-size:100% 0.05rem;color:#494949;font-size:0.75rem}
+.gerenxinxi li a{position:relative;display:block;padding:0.75rem 0.75rem;color:#666;}
+.gerenxinxi li img{position:absolute;top:0.75rem;left:0.75rem;width:1.05rem;height:1rem}
+.gerenxinxi li span{display:block;padding:0 1rem 0 1.7rem;height:1rem;background:url(../img/arrow1.png) right center no-repeat;background-size:0.35rem 0.6rem;line-height:1rem}
+.gerenzhongxin img{display:block;margin:1.9rem auto 0;width:3.5rem;height:3.5rem}
+.gerenzhongxin p{height:2.8rem;font-size:.75rem;line-height:2.8rem}
+.zhuxiao{padding:2.25rem .75rem}
+.zhuxiao a{display:block;width:100%;height:2.15rem;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#ccc;color:#fff;text-align:center;font-size:.8rem;line-height:2.15rem;-o-border-radius:6px;-ms-border-radius:6px}
+.gerenzhongxin img{display:block;margin:1.9rem auto 0;width:3.5rem;height:3.5rem;}
+.gerenzhongxin p{height:2.8rem;font-size:.75rem;line-height:2.8rem;}
+.zhuxiao{padding:2.25rem .75rem;}
+.zhuxiao a{display:block;width:100%;height:2.15rem;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;background-color:#ccc;color:#fff;text-align:center;font-size:.8rem;line-height:2.15rem;-o-border-radius:6px;-ms-border-radius:6px;}
+.chenggong{padding-top:5.65rem;height:3.6rem;background:url(../img/chenggong.png) center .65rem no-repeat #fff;background-size:3.875rem 3.875rem;}
+.chenggong p{margin:0 auto;width:6.25rem;height:1.4rem;color:#1c90ea;text-align:center;font-size:.9rem;line-height:1.4rem;}
+.yaozuobg{padding:0 .75rem;background-color:#fff;}
+.yaozuo{position:relative;clear:both;border:1px solid #292b5b;background-color:#fff;}
+.yaozuotitle{position:absolute;top:-.5rem;left:4.25rem;padding:0 .5rem;height:.9rem;background-color:#fff;color:#292b5b;font-size:.575rem;line-height:.9rem;}
+.yaozuo ul{padding:0 0 0 1rem;}
+.yaozuo li:last-child{border:0;}
+.yaozuo li{position:relative;overflow:hidden;padding:1rem 0;border-bottom:1px solid #e8e8e8;color:#666;}
+.yaozuo li img{position:absolute;width:3.2rem;height:3.2rem;}
+.yaozuo li p{padding-left:4rem;}
+.yaozuo li p strong{display:block;font-size:.7rem;line-height:1.4rem;}
+.yaozuo li p span{display:block;font-size:.6rem;line-height:.8rem;}
+.yaozuo li p em{color:#292b5b;font-style:normal;}
+.chenggongbtn{position:fixed;bottom:0;width:100%;background:url(../img/hengxiantop.png) top left no-repeat #fff;background-size:100% .025rem;}
+.chenggongbtn p{padding:.5rem .4rem .5rem .35rem;height:2.15rem;text-align:center;line-height:2.15rem;}
+.chenggongbtn p span{float:left;width:50%;}
+.chenggongbtn p .jxhsbtn{border:1px solid #292b5b;background-color:#fff;color:#292b5b;}
+.chenggongbtn p a{display:block;margin:0 .35rem 0 .4rem;height:2.05rem;border:1px solid #292b5b;-webkit-border-radius:6px;border-radius:6px;background-color:#292b5b;color:#fff;font-size:.75rem;}
+.dingdanhao{padding:1.5rem .75rem;background-color:#fff;color:#333;font-size:.65rem;line-height:.9rem;}
+.dingdanhao p{position:relative;padding:.15rem 0 .15rem 3.35rem;color:#666;}
+.dingdanhao p span{position:absolute;left:0;}
+.dingdanhao p em{font-style: normal;color: #292b5b;}
+.weixiujiagefei{padding:0 .5rem;background-color:#fff;}
+.weixiujiagefei ul{padding:.35rem 0;}
+.weixiujiagefei li{height:1.25rem;font-size:.7rem;line-height:1.25rem;}
+.weixiujiagefei li span{float:right;color:#ff5000;}
+.weixiujiage{height:2.75rem;background:linear-gradient(0,#e6e6e6,#e6e6e6 50%,transparent 50%) top left/100% .05rem no-repeat;text-align:right;font-size:.75rem;line-height:2.75rem;}
+.weixiujiagefei .weixiujiage{color:#333;}
+.jixinglist{overflow:hidden;background:url(../img/hengxian.png) left bottom no-repeat #fff;background-size:100% 0.05rem}
+.jixinglist ul{overflow:hidden}
+.jixinglist li{overflow:hidden;background:url(../img/hengxian.png) left bottom no-repeat;background-size:100% 0.025rem}
+.jixinglistli{float:left;overflow:hidden;width:33.3%;}
+.jixinglist li .huishoulist{padding:1rem 0 0.9rem;background:url(../img/shuxian.png) right top no-repeat;background-size:0.025rem 100%;}
+.jixinglist li img{width:4.5rem;height:4.5rem}
+.huishoulist{display:block;margin:0 auto;text-align:center;cursor:pointer}
+.huishoulist span{display:block;overflow:hidden;margin:0 auto;padding-top:0.6rem;width:4.35rem;height:0.9rem;color:#333;text-align:center;font-size:0.65rem;line-height:36px}
+.jixinglist li .huishoulist span{height:auto}

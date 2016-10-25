@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>下单成功</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript">
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="chenggong">
+				<p>下单成功</p>
+			</div>
+			<div class="yaozuobg">
+				<div class="yaozuo">
+					<div class="yaozuotitle">接下来您要做的是</div>
+					<ul>
+						<li><img src="img/dengkefu.png">
+							<p><strong>等待客服与您联系</strong><span>请耐心等待,工作时间(8:00~22:30)<br>客服热线：<em>400-837-799</em></span></p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div style="height: 10rem; background: #FFFFFF;"></div>
+			<div class="dingdanhao">
+				<p><span>订单总额：</span><em>¥425.00</em></p>
+				<p><span>订单编号：</span>320378</p>
+				<p><span>品牌型号：</span>苹果iPhone 6S 黑色</p>
+				<p><span>故障详情：</span>外屏碎（正常显示）</p>
+			</div>
+			<!--<div class="weixiujiagefei mt20">
+				<ul>
+					<li>维修价格<span>¥0</span></li>
+					<li>上门费<span>¥0</span></li>
+					<li>服务费<span>¥0</span></li>
+				</ul>
+				<div class="weixiujiage">
+					<p>总价：<span>¥</span><strong>0</strong></p>
+				</div>
+			</div>-->
+			<div class="chenggongbtn">
+				<p><span><a href="index.html" class="jxhsbtn">返回首页</a></span><span><a href="/user/orderdetail?oid=337810&amp;otype=1">订单详情</a></span></p>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script>
+		$(function() {
+			$('.dingdanhao').hide();
+		});
+	</script>
+
+</html>

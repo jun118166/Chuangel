@@ -13,3 +13,6 @@ IU.namespace = function(str) {
 		o = o[arr[i]];
 	}
 }
+function getData(param, success){
+		
+}

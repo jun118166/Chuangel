@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户登录</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript">
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="logo">
+				<img src="img/login1.png">
+			</div>
+			<div class="v1-1tishi">
+				<p class="err_login_msg">手机号为空或格式错误</p>
+			</div>
+			<form method="post" action="" class="loginForm">
+				<ul class="xinxi" style="padding:0 .75rem;">
+					<li>
+						<input type="tel" placeholder="请输入手机号" id="txtMobile" name="mobile" class="color3">
+					</li>
+					<li class="yzmzm">
+						<input type="text" placeholder="请输入图片验证码" class="imgcode_code color3" value="">
+						<span class="imgcode_img shuaxin"></span>
+					</li>
+					<li class="yzm">
+						<input type="tel" placeholder="请输入短信验证码" class="userinfoYzm color3" name="validcode">
+						<a href="javascript:;" id="validCodeId" class="cxhq" style="color: rgb(255, 255, 255);">获取验证码</a>
+					</li>
+				</ul>
+				<div class="login">
+					<a href="javascript:;" class="chaxun" style="margin-top: 0;">登录</a>
+					<p>验证即登录，未注册将自动创建传天羽维修账号</p>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/util.js"></script>
+	<script>
+		$(function() {
+			$('.err_login_msg').hide();
+			IU.util.init();
+			$('.v1-1tishi1').hide();
+			$("span.shuaxin").html(IU.util.createCode());
+			//刷新图片
+			$("span.shuaxin").click(function() {
+				var code = IU.util.createCode();
+				$("span.shuaxin").html(code);
+			});
+
+			$('.chaxun').click(function() {
+				var phoneNum = $('#txtMobile').val();
+				var validCode = $('.userinfoYzm').val();
+				var imgCode = $('.imgcode_code').val();
+				if(!phoneNum) {
+					$('.err_login_msg').text('请输入手机号码');
+					$('.err_login_msg').show();
+					return false;
+				}
+				if(!IU.util.checkPhone(phoneNum)) {
+					$('.err_login_msg').text('请输入正确的手机号码');
+					$('.err_login_msg').show();
+					return false;
+				}
+				if(imgCode == '') {
+					$('.err_login_msg').text('请输入图形验证码');
+					$('.err_login_msg').show();
+					return false;
+				}
+				if(imgCode.length != 4) {
+					$('.err_login_msg').text('图形验证码错误');
+					$('.err_login_msg').show();
+					return false;
+				}
+				if(validCode == '') {
+					$('.err_login_msg').text('请输入手机验证码');
+					$('.err_login_msg').show();
+					return false;
+				}
+				if(validCode.length != 6) {
+					$('.err_login_msg').text('请输入正确的手机验证码');
+					$('.err_login_msg').show();
+					return false;
+				}
+//				$.ajax({
+//					type:"post",
+//					url:"",
+//					data: $('.loginForm').serialize(),
+//					success: function(msg){
+//						
+//					}
+//				});
+				location.href = 'usercenter.html';
+			});
+			
+			IU.util.sendMsg($('#validCodeId'), 60);
+		});
+	</script>
+
+</html>

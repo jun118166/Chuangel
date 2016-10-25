@@ -1,9 +1,53 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>会员中心</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript">
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
 	</head>
+
 	<body>
+		<div class="wrapper">
+			<div class="gerenzhongxin">
+				<!--未登陆-->
+				<!--<strong>欢迎使用传天羽维修</strong>
+				<a href="login.html">点击登录</a>-->
+				<img src="img/yidenglu.png"/>
+				<p>欢迎您，18321334532</p>
+			</div>
+			<ul class="gerenxinxi">
+				<li>
+					<a href="order.html"><img src="img/order.png"><span>我的订单</span></a>
+				</li>
+				<li>
+					<a href="article.html?tag=question"><img src="img/qa.png"><span>常见问题</span></a>
+				</li>
+				<li>
+					<a href="feedback.html"><img src="img/write.png"><span>意见反馈</span></a>
+				</li>
+				<li>
+					<a href="aboutus.html"><img src="img/aboutcty.png" style="width: auto;"><span></span></a>
+				</li>
+			</ul>
+			<div class="zhuxiao">
+				<a href="logout.html">注销</a>
+			</div>
+		</div>
 	</body>
+
 </html>
