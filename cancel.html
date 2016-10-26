@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>取消订单</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript">
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="baoqian">
+				<img src="img/baoqian.png">
+				<dl>
+					<dt>或者告诉我们取消原因吧</dt>
+					<dd>
+						<ul class="button-holder">
+							<li rid="3"><strong></strong><span>咨询价格</span></li>
+							<li rid="4"><strong></strong><span>区域/机型/机型问题/不在上门范围内</span></li>
+							<li rid="5"><strong></strong><span>总成（内外屏）价格不接受</span></li>
+							<li rid="6"><strong></strong><span>关机/无人接听/电话无法接通</span></li>
+							<li rid="7"><strong></strong><span>联系不及时/客户已修好</span></li>
+							<li rid="8"><strong></strong><span>无法在客户指定时间内安排上门</span></li>
+							<li rid="9" class="buttonholdercur"><strong></strong><span>其他</span></li>
+						</ul>
+					</dd>
+				</dl>
+				<div class="btn">
+					<p>
+						<a href="javascript:void(0)" class="quxiaobtn">
+							<img src="img/quxiaobtn.png">
+						</a>
+					</p>
+					<p>
+						<a href="javascript:history.go(-1);" class="dengdengbtn">
+							<img src="img/dengdengbtn.png">
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="quxiaoTip" style="display: none;">
+			<div class="fankuiTip">
+				<strong>信息提示</strong>
+				<span>订单取消成功</span>
+				<a href="javascript:void(0)" class="pingjiacgBtn">确定</a>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script>
+		$(function() {
+			$(".quxiaobtn").click(function() {
+				var oid = $("input.oid").val();
+				var rid = $('li.buttonholdercur').attr('rid');
+
+				if(!rid) {
+					$(".quxiaoTip span").html('请选择取消原因！');
+					$(".quxiaoTip").show();
+					return;
+				}
+
+//				$.post('/user/cancelorder', {
+//					'oid': oid,
+//					rid: rid
+//				}, function(res) {
+//					$(".quxiaoTip span").html(res.msg);
+//					$(".quxiaoTip").show();
+//				}, 'json');
+			});
+			$(".pingjiacgBtn,.tishiclose").click(function() {
+				var rid = $('li.buttonholdercur').attr('rid');
+				if(!rid) {
+					$(".quxiaoTip").hide();
+				} else {
+					location.href = document.referrer;
+				}
+			});
+			$(".baoqian dd li").click(function() {
+				$(this).addClass("buttonholdercur").siblings("li").removeClass("buttonholdercur");
+			});
+		})
+	</script>
+
+</html>

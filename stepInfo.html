@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript">
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="tianxinxi">
+			<div class="weixiubaojia">
+				<img src="img/iphone7.png">
+				<strong>iPhone7外屏碎（显示正常）</strong>
+				<span>更换总成对换(质保半年)旧屏收回	</span>
+				<div class="weixiubaojiafei">
+					<p>维修报价：<strong id="repairprice">¥850</strong></p>
+				</div>
+			</div>
+		</div>
+		<div class="xinxi">
+			<ul>
+				<li>
+					<input type="text" placeholder="请输入您的姓名" class="realName">
+				</li>
+				<li class="tishi v1-1tishi1 err_real_name" style="display:none;">请输入姓名</li>
+				<li>
+					<input type="tel" placeholder="请输入您的手机" class="phoneNum" id="txtMobile">
+				</li>
+				<li class="tishi v1-1tishi1 err_mobile" style="display:none;">请输入手机号码</li>
+				<li class="yzmzm">
+					<input type="text" placeholder="请输入图片验证码" class="imgcode_code" value="">
+					<span class="imgcode_img shuaxin"></span>
+				</li>
+				<li class="tishi v1-1tishi1 err_imgcode" style="display:none;">请输入图片验证码</li>
+				<li class="yzm">
+					<input type="tel" placeholder="请输入短信验证码" class="userinfoYzm">
+					<a href="javascript:void(0);" id="validCodeId">获取验证码</a>
+				</li>
+				<li class="tishi v1-1tishi1 err_validcode" style="display:none;">请输入正确的手机验证码</li>
+				<li class="selectadd">
+					<p>
+						<span>
+                    		<select id="select_city">
+								<option value="0">选择市</option>
+								<option value="310100">上海市</option>
+							</select>
+                		</span>
+					</p>
+					<p>
+						<select id="select_district" value="310101">
+							<option value="0">选择区</option>
+							<option value="310101">黄浦区</option>
+							<option value="310115">浦东新区</option>
+							<option value="310114">嘉定区</option>
+							<option value="310113">宝山区</option>
+							<option value="310112">闵行区</option>
+							<option value="310110">杨浦区</option>
+							<option value="310109">虹口区</option>
+							<option value="310108">闸北区</option>
+							<option value="310107">普陀区</option>
+							<option value="310106">静安区</option>
+							<option value="310105">长宁区</option>
+							<option value="310104">徐汇区</option>
+							<option value="310117">松江区</option>
+						</select>
+					</p>
+				</li>
+				<li class="tishi v1-1tishi1 err_city_district" style="display:none;">请选择所在地区</li>
+				<li class="xiangxidizhi">
+					<div contenteditable="true" class="xiangxidizhi1 address" tabindex="0" onfocus="addressonfocus()" onblur="addressonblur()">请输入详细地址</div>
+					<a contenteditable="false" id="address" class="loca" style="margin-right: 15px;"></a>
+				</li>
+				<li class="tishi v1-1tishi1 err_address" style="display:none;">请输入详细地址</li>
+				<li class="selectadd" style="padding: .5rem 0;">
+					<p>
+						<span>
+                    		<select id="select_city">
+								<option value="0">选择上门时间</option>
+							</select>
+                		</span>
+					</p>
+					<p>
+						<select id="select_district" value="310101">
+							<option value="0">选择门店</option>
+						</select>
+					</p>
+				</li>
+				<li>
+					<div class="textarea">
+						<textarea placeholder="请输入备注信息" class="remark"></textarea>
+					</div>
+				</li>
+				<li class="tishi v1-1tishi1 err_coupons" style="display:none;"></li>
+			</ul>
+		</div>
+		<div class="xiayibu1">
+			<div class="tijiaodingdan">总额：<strong>¥</strong><strong id="price">850</strong>
+				<span>提交订单等同于同意<a class="fuwutiaokuan">传天羽维修服务条款</a></span></div>
+			<a href="javascript:step_done();">提交订单</a>
+		</div>
+	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/util.js"></script>
+	<script>
+		function step_done() {
+			var realName = $('.realName').val();
+			var phoneNum = $('.phoneNum').val();
+			var imgcode_code = $('.imgcode_code').val();
+			var userinfoYzm = $('.userinfoYzm ').val();
+			var city = $('.cityId').val();
+			var distrcit = $('.disId').val();
+			var address = $('.address').html();
+			address = $.trim($('<div/>').html(address).text());
+			var remark = $('.remark').val();
+			var vcode = $('.vcode').val();
+			var plid = $('.plid').val();
+			var couponid = $('.useCoupons').val();
+			var useInputCoupon = $('.useInputCoupon').val();
+			var inputCouponCode = '';
+			var ref = $('.ref').val();
+			if(useInputCoupon == 1) {
+				inputCouponCode = $('#input_coupon').val();
+			}
+			if(realName == '') {
+				$('.err_real_name').show();
+				return false;
+			} else {
+				$('.err_real_name').hide();
+			}
+			if(phoneNum == '') {
+				$('.err_mobile').show();
+				return false;
+			} else {
+				$('.err_mobile').hide();
+			}
+			if(!IU.util.checkPhone(phoneNum)) {
+				$('.err_mobile').text('请输入正确的手机号码');
+				$('.err_mobile').show();
+				return false;
+			}
+			if($('.imgcode_code').length) {
+				if(imgcode_code == '') {
+					$('.err_imgcode').text('请输入图片验证码');
+					$('.err_imgcode').show();
+					return false;
+				} else {
+					if(imgcode_code.length != 4 || (imgcode_code.toLowerCase() != $('.yzmzm span').html().toLowerCase())) {
+						$('.err_imgcode').text('图形验证码错误');
+						$('.err_imgcode').show();
+						return false;
+					}
+				}
+			}
+			if($('.userinfoYzm').length) {
+				if(userinfoYzm == '') {
+					$('.err_validcode').show();
+					return false;
+				} else {
+					if(userinfoYzm.length != 6) {
+						$('.err_validcode').text('手机验证码错误');
+						$('.err_validcode').show();
+						return false;
+					} else {
+						$('.err_validcode').text('请输入手机验证码');
+						$('.err_validcode').hide();
+					}
+				}
+			}
+			if(city == '' || distrcit == '') {
+				$('.err_city_district').show();
+				return false;
+			} else {
+				$('.err_city_district').hide();
+			}
+			if(address == '' || address == ' ' || address == '请输入详细地址') {
+				$('.err_address').show();
+				return false;
+			} else {
+				$('.err_address').hide();
+			}
+			window.location.href = "success.html?oid=1";
+		}
+
+		function addressonfocus() {
+			if($('.address').html() == '请输入详细地址') {
+				$('.address').html(' ');
+				$('.address').css('color', '#333');
+			}
+		}
+
+		function addressonblur() {
+			if($('.address').html().length <= 0 || $('.address').html() == ' ') {
+				$('.address').html('请输入详细地址');
+				$('.address').css('color', '#888');
+			}
+		}
+		$(function() {
+			IU.util.init();
+			$('.v1-1tishi1').hide();
+			$("span.shuaxin").html(IU.util.createCode());
+			//刷新图片
+			$("span.shuaxin").click(function() {
+				var code = IU.util.createCode();
+				$("span.shuaxin").html(code);
+			});
+
+			IU.util.sendMsg($('#validCodeId'), 60);
+		});
+	</script>
+
+</html>

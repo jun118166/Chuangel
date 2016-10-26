@@ -36,7 +36,7 @@
 					</ul>
 				</div>
 			</div>
-			<div style="height: 10rem; background: #FFFFFF;"></div>
+			<div class="emptydiv" style="height: 10rem; background: #FFFFFF;"></div>
 			<div class="dingdanhao">
 				<p><span>订单总额：</span><em>¥425.00</em></p>
 				<p><span>订单编号：</span>320378</p>
@@ -54,14 +54,22 @@
 				</div>
 			</div>-->
 			<div class="chenggongbtn">
-				<p><span><a href="index.html" class="jxhsbtn">返回首页</a></span><span><a href="/user/orderdetail?oid=337810&amp;otype=1">订单详情</a></span></p>
+				<p><span><a href="index.html" class="jxhsbtn">返回首页</a></span>
+				   <span><a href="/user/orderdetail?oid=337810&amp;otype=1">订单详情</a></span></p>
 			</div>
 		</div>
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
 	<script>
 		$(function() {
 			$('.dingdanhao').hide();
+			if(geturlparam('oid')) {
+				$('.emptydiv').hide();
+				$('.dingdanhao').show();
+				$($('.chenggongbtn p span a')[0]).text('订单详情');
+				$($('.chenggongbtn p span a')[1]).text('立即支付');
+			}
 		});
 	</script>
 
