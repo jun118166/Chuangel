@@ -13,6 +13,9 @@ IU.namespace = function(str) {
 		o = o[arr[i]];
 	}
 }
+/*
+ * 获取页面参数
+ */
 function geturlparam(name) {
 	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
 	var r = window.location.search.substr(1).match(reg); //匹配目标参数
@@ -21,6 +24,19 @@ function geturlparam(name) {
 	}
 	return null; //返回参数值
 }
+/*
+ * 页面跳转
+ */
+function jump(url) {
+	var isFullPath = url.indexOf('http') > -1;
+
+	if(isFullPath) {
+		location.href = url;
+	} else {
+		var pathname = location.pathname.substring(0, location.pathname.lastIndexOf('/') + 1);
+		location.href = location.origin + pathname + url;
+	}
+};
 function getData(param, success){
 		
 }

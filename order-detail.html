@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的订单</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript">
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="dingdanjindu">
+				<div class="dingdanjinduT">
+					<strong>订单状态:创建成功</strong>
+					<span>请耐心等待,客服将会马上与你联系</span>
+				</div>
+				<ul class="dingdanjinduM">
+					<p class="dingdanjinduCur">
+						<strong style="padding:0 5px 0 8px; margin-left:0;">
+                        <img src="img/paidanzhong.png">
+                    </strong>
+						<span>派单中</span>
+					</p>
+					<p style="left:28%;">
+						<strong>
+                        <img src="img/daiweixiu.png">
+                    </strong>
+						<span>待维修</span>
+					</p>
+					<p style="left:55%;">
+						<strong style="margin-right:0;">
+                        <img src="img/yiwancheng701.png">
+                    </strong>
+						<span>已完成</span>
+					</p>
+					<p style="right:0;">
+						<strong style="padding:0 8px 0 5px; margin-right:0;">
+                        <img src="img/daipingjia.png">
+                    </strong>
+						<span>已评价</span>
+					</p>
+				</ul>
+			</div>
+			<div class="yichuangjian mt20">
+				<dl>
+					<dt>
+            <p>用户信息</p></dt>
+					<dd>
+						<p><span>维修人：</span>呵呵</p>
+						<p><span>手机号：</span>13795332078</p>
+						<p><span>维修地址：</span>上海市黄浦区南京西路231号人民公园内上海当代艺术馆3层</p>
+					</dd>
+				</dl>
+			</div>
+			<div class="yichuangjian mt20">
+				<dl>
+					<dt>
+            <p>订单详情</p></dt>
+					<dd>
+						<p><span>型号：</span>iPhone 6S </p>
+						<p><span>订单号：</span>339071</p>
+						<p><span>故障详情：</span>边框受伤（更换）</p>
+						<p><span>维修方案：</span>更换品牌外壳</p>
+						<p><span>下单时间：</span>2016-10-26 18:17:48</p>
+						<p><span>备注：</span>呵呵</p>
+						<p><span></span></p>
+					</dd>
+				</dl>
+			</div>
+			<div class="yichuangjian mt20">
+				<dl>
+					<dt>
+            <p>维修价格<span>¥425</span></p></dt>
+					<dd>
+						<p><span>上门费：</span>¥0 </p>
+						<p><span>服务费：</span>¥0</p>
+						<p><span>支付状态：</span>未支付</p>
+					</dd>
+				</dl>
+			</div>
+			<div class="yichuangjian" style="padding-bottom: 3.25rem;">
+				<dl>
+					<dt style="    background: linear-gradient(0, #e6e6e6, #e6e6e6 50%, transparent 50%) top left / 100% 2px no-repeat;">
+            			<p>
+            				<span style="float:left;padding-left: 9%;color: #333333;">总额：<strong style="color: #292b5b;">¥425</strong></span>
+            				<a href="#">立即支付</a>
+            			</p>
+					</dt>
+				</dl>
+			</div>
+			<div class="xiayibu">
+				<a href="javascript:cancelorder(339071);">取消订单</a>
+			</div>
+		</div>
+	</body>
+
+</html>

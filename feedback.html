@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>意见反馈</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript">
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="wrapper">
+			<div class="pingjia">
+				<div class="tishi2">您宝贵的意见将有助于提高我们的服务质量！</div>
+				<div class="pingjiaMain">
+					<textarea placeholder="请输入你的反馈意见" class="textarea" onpropertychange="codeLength('.textarea',10,'.zz');" oninput="codeLength('.textarea',200,'.zz');" onkeydown="codeLength('.textarea',200,'.zz')"></textarea>
+					<p>还能输入<span class="zz">200</span>个字</p>
+				</div>
+			</div>
+			<div class="xiayibu">
+				<a href="javascript:;" class="submitComment">提交</a>
+			</div>
+			<div class="quxiaoTip">
+				<div class="quxiaomain">
+					<p class="msg">反馈成功</p>
+					<a href="javascript:void(0)" class="pingjiacgBtn">确定</a>
+				</div>
+			</div>
+			<li class="v1-1tishi1 err_comment" style="display: none;">请输入内容</li>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script>
+		$(function(){
+			$('.quxiaoTip').hide();
+		});
+		function codeLength(cls, maxNum, clsCnt) {
+			var curCount = 0;
+			var remainderCount;
+			var curCount = $(cls).val().length;
+			remainderCount = maxNum - curCount;
+			$(window).keydown(function(event) {
+				if(event.keyCode == 116) {
+					remainderCount = remainderCount + 1;
+				}
+			});
+			if(remainderCount <= 0) {
+				remainderCount = 0;
+				var str = $(cls).val().substring(0, maxNum);
+				$(cls).val(str);
+			}
+			$(clsCnt).text(remainderCount);
+		}
+
+		$(".submitComment").click(function() {
+			var oid = $('.oid').val();
+			var content = $('.textarea').val();
+			if(content == '') {
+				$('.err_comment').text('请输入你的反馈意见').show();
+				return false;
+			}
+			$('.err_comment').hide();
+			$.ajax({
+				type: 'post',
+				url: '/index/feedback',
+				data: {
+					'content': content
+				},
+				dataType: 'json',
+				success: function(data) {
+					$(".msg").text(data.msg);
+					$(".quxiaoTip").show();
+				}
+			});
+		});
+
+		$(".quxiaomain .pingjiacgBtn").click(function() {
+			$(".quxiaoTip").hide();
+		});
+		$(".pingjiaMain textarea").focus(function() {
+			$(this).addClass("color3");
+		});
+	</script>
+
+</html>

@@ -6,7 +6,7 @@
 		<title>取消订单</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 		<meta content="telephone=no" name="format-detection">
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/style.rem.css" />
 		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
 		<script type="text/javascript">
 			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
@@ -35,7 +35,7 @@
 							<li rid="6"><strong></strong><span>关机/无人接听/电话无法接通</span></li>
 							<li rid="7"><strong></strong><span>联系不及时/客户已修好</span></li>
 							<li rid="8"><strong></strong><span>无法在客户指定时间内安排上门</span></li>
-							<li rid="9" class="buttonholdercur"><strong></strong><span>其他</span></li>
+							<li rid="9"><strong></strong><span>其他</span></li>
 						</ul>
 					</dd>
 				</dl>
@@ -59,6 +59,7 @@
 				<span>订单取消成功</span>
 				<a href="javascript:void(0)" class="pingjiacgBtn">确定</a>
 			</div>
+			<span></span>
 		</div>
 	</body>
 	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
@@ -69,11 +70,12 @@
 				var rid = $('li.buttonholdercur').attr('rid');
 
 				if(!rid) {
-					$(".quxiaoTip span").html('请选择取消原因！');
+					$(".quxiaoTip span").html('请选择取消原因!');
 					$(".quxiaoTip").show();
-					return;
+					return false;
 				}
-
+				$(".quxiaoTip span").html('订单取消成功');
+				$(".quxiaoTip").show();
 //				$.post('/user/cancelorder', {
 //					'oid': oid,
 //					rid: rid
