@@ -6,6 +6,8 @@ a{text-decoration:none}
 input[type=password],input[type=text],select,textarea{outline:0;border-radius:0;resize:none;-webkit-appearance:none;appearance:none;-webkit-tap-highlight-color:transparent}
 body{background-color:#f5f5f5;color:#888;font-size:14px}
 .mt20{margin-top:20px}
+.fr{float: right;}
+.fl{float: left;}
 body .topfixed{position:fixed;top:0;z-index:9;width:100%}
 .wrapper{width:100%}
 .wrapper .indextop{height:88px;background:url(../img/logo.png) center no-repeat #fff;background-size:216px 52px}
@@ -238,3 +240,9 @@ footer li{float:left;width:33.3%;height:70px;font-size:26px;line-height:70px}
 .img li{float:left;width:50%}
 .img li span{display:block;overflow:hidden;padding:0 20px 20px 0}
 .img li img{float:left;width:100%}
+
+.topjine{position:fixed;top:0;z-index:9;width:100%;height:100px;background:#FFF}
+.topjine p{padding:0 30px;height:100px;color:#333;font-size:30px;line-height:100px}
+.topjine p span{color:#292B5B;font-size:40px}
+.topjine p span em{font-style:normal;font-size:30px}
+.sjxx dt a.sbmc{float:right;padding-right:0;width:320px;background:0 0;color:#333;text-align:right;font-weight:700}

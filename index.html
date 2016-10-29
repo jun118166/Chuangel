@@ -13,6 +13,7 @@
 		<title>传天羽维修_手机维修_手机上门维修 - 传天羽维修_手机维修_苹果/安卓手机维修_手机上门维修</title>
 		<link rel="stylesheet" href="css/style.rem.css" />
 		<link rel="stylesheet" href="css/swiper-3.2.7.min.css" />
+		<script type="text/javascript" src="//webapi.amap.com/maps?v=1.3&key=11be5d75018d5bf370f5c5bcab522eb8&plugin=AMap.Geocoder"></script>
 		<script type="text/javascript">
 			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
 				function c() {
@@ -202,12 +203,62 @@
 				<p>传天羽 苏ICP备 123456号-1</p>
 			</footer>
 		</div>
+		<div id="mengceng" style="position:absolute;width:100%;height:1360px;z-index:98;background-color:#ffffff;display:none;">
+			<div id="framegoback" style="position:fixed;width:50px;height:50px;z-index:99999;top:1px;left:1px;"></div>
+			<iframe id="test" src='http://m.amap.com/picker/?key=11be5d75018d5bf370f5c5bcab522eb8' style='width:100%;height:100%;position:fixed;top:0px;z-index:99;background-color:#ffffff;display:none;' frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
+		</div>
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script src="js/base.js"></script>
 	<script src="js/util.js"></script>
 	<script src="js/swiper-3.2.7.jquery.min.js"></script>
 	<script>
+		//弹出高德地图
+		var mock = {
+			log: function(result) {
+				window.parent.setIFrameResult('log', result);
+			}
+		}
+		console = mock;
+		window.Konsole = {
+			exec: function(code) {
+				code = code || '';
+				try {
+					var result = window.eval(code);
+					window.parent.setIFrameResult('result', result);
+				} catch(e) {
+					window.parent.setIFrameResult('error', e);
+				}
+			}
+		}
+		
+		
+		var map, geolocation;
+		//加载地图，调用浏览器定位服务
+		map = new AMap.Map('container', {
+			resizeEnable: true
+		});
+		map.plugin('AMap.Geolocation', function() {
+			geolocation = new AMap.Geolocation({
+				enableHighAccuracy: true, //是否使用高精度定位，默认:true
+				timeout: 10000, //超过10秒后停止定位，默认：无穷大
+				buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+				zoomToAccuracy: true, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+				buttonPosition: 'RB'
+			});
+			map.addControl(geolocation);
+			geolocation.getCurrentPosition();
+			AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
+			AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
+		});
+
+		function onComplete(data) {
+			localStorage.setItem('city', JSON.stringify(data));
+		}
+
+		function onError(e) {
+			alert(data.msg);
+		}
 		var swiper = new Swiper('.banner .swiper-container', {
 			pagination: '.banner .swiper-pagination',
 			paginationClickable: true,
@@ -236,7 +287,42 @@
 			}
 		}
 
+		(function() {
+			var iframe = document.getElementById('test').contentWindow;
+			setTimeout(function() {
+				iframe.postMessage('hello', 'http://m.amap.com/picker/');
+			}, 500)
+			window.addEventListener("message", function(e) {
+				window.setaddress(e.data.address)
+			}, false);
+		}());
+
+		function setaddress(addr) {
+			$('div.address').html(addr);
+			cleartimeout();
+			$('#test').hide();
+			$('#mengceng').hide();
+			$('.address').css('color', '#333');
+		}
+		$('#framegoback').click(function() {
+			cleartimeout();
+			$('#test').hide();
+			$('#mengceng').hide();
+		});
+
+		function cleartimeout() {
+			poitimeoutflag = null;
+		}
+		var poitimeoutflag = null;
 		$(function() {
+			var mapurl = '';
+			$('a#address').click(function() {
+				$('#test').show();
+				$('#mengceng').show();
+			});
+			$('.item .J_returnLng').click(function(e) {
+				alert(e);
+			});
 			IU.util.init();
 			$('.v1-1tishi1').hide();
 			$("span.shuaxin").html(IU.util.createCode());
