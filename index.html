@@ -116,14 +116,13 @@
 									<option value="0">选择市</option>
 									<option value="310100">上海市</option>
 									<option value="110100">北京市</option>
+									<option value="320100">南京市</option>
 								</select>
 							</span>
 						</p>
 						<p>
-							<select id="select_district">
+							<select id="select_district" value="310101">
 								<option value="0">选择区</option>
-								<option value="110106">丰台区</option>
-								<option value="110119">东城区</option>
 							</select>
 						</p>
 					</li>
@@ -231,8 +230,7 @@
 				}
 			}
 		}
-		
-		
+
 		var map, geolocation;
 		//加载地图，调用浏览器定位服务
 		map = new AMap.Map('container', {
@@ -254,6 +252,20 @@
 
 		function onComplete(data) {
 			localStorage.setItem('city', JSON.stringify(data));
+			AMap.service('AMap.Geocoder', function() { //回调函数
+				var geocoder = new AMap.Geocoder({
+					city: "010" //城市，默认：“全国”
+				});
+				var lnglatXY = [data.position.lng, data.position.lat]; //地图上所标点的坐标
+				geocoder.getAddress(lnglatXY, function(status, result) {
+					if(status === 'complete' && result.info === 'OK') {
+						//获得了有效的地址信息:
+						//即，result.regeocode.formattedAddress
+					} else {
+						//获取地址失败
+					}
+				});
+			})
 		}
 
 		function onError(e) {
