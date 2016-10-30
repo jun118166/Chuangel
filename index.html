@@ -278,26 +278,30 @@
 			$('#test').hide();
 			$('#mengceng').hide();
 		});
-
+		var host = 'http://www.wsdlcd.com/webapi/api/';
 		$(function() {
-			//获取城市数据
-			getData('area', function(res) {
-				for(i in res.data) {
-					var obj = res.data[i];
-					$('#select_city').append('<option value="' + obj.F_Id + '">' + obj.F_FullName + '</option>');
+			$.ajax({
+				type: "get",
+				url: host+'area',
+				async:false,
+				success: function(res){
+					for(i in res.data) {
+						var obj = res.data[i];
+						$('#select_city').append('<option value="' + obj.F_Id + '">' + obj.F_FullName + '</option>');
+					}
 				}
 			});
 
 			$('#select_city').change(function() {
-				var cityId = $(this).val();
-				getData(['area', cityId], function(data) {
-					var obj = eval(data.data);
-					$('#select_district').empty();
-					$('#select_district').append('<option value="0">选择区</option>');
-					for(i in obj) {
-						$('#select_district').append('<option value="' + obj[i].F_Id + '">' + obj[i].F_FullName + '</option>');
-					}
-				});
+//				var cityId = $(this).val();
+//				getData(['area', cityId], function(data) {
+//					var obj = eval(data.data);
+//					$('#select_district').empty();
+//					$('#select_district').append('<option value="0">选择区</option>');
+//					for(i in obj) {
+//						$('#select_district').append('<option value="' + obj[i].F_Id + '">' + obj[i].F_FullName + '</option>');
+//					}
+//				});
 			});
 
 			$('a#address').click(function() {
