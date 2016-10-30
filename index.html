@@ -114,9 +114,6 @@
 							<span>
 								<select id="select_city">
 									<option value="0">选择市</option>
-									<option value="310100">上海市</option>
-									<option value="110100">北京市</option>
-									<option value="320100">南京市</option>
 								</select>
 							</span>
 						</p>
@@ -212,6 +209,17 @@
 	<script src="js/util.js"></script>
 	<script src="js/swiper-3.2.7.jquery.min.js"></script>
 	<script>
+		(function() {
+			var iframe = document.getElementById('test').contentWindow;
+			setTimeout(function() {
+				iframe.postMessage('hello', 'http://m.amap.com/picker/');
+			}, 1000)
+			window.addEventListener("message", function(e) {
+				window.setaddress(e.data.address)
+			}, false);
+		}());
+	</script>
+	<script>
 		//弹出高德地图
 		var mock = {
 			log: function(result) {
@@ -231,46 +239,6 @@
 			}
 		}
 
-		var map, geolocation;
-		//加载地图，调用浏览器定位服务
-		map = new AMap.Map('container', {
-			resizeEnable: true
-		});
-		map.plugin('AMap.Geolocation', function() {
-			geolocation = new AMap.Geolocation({
-				enableHighAccuracy: true, //是否使用高精度定位，默认:true
-				timeout: 10000, //超过10秒后停止定位，默认：无穷大
-				buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-				zoomToAccuracy: true, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
-				buttonPosition: 'RB'
-			});
-			map.addControl(geolocation);
-			geolocation.getCurrentPosition();
-			AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
-			AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
-		});
-
-		function onComplete(data) {
-			localStorage.setItem('city', JSON.stringify(data));
-			AMap.service('AMap.Geocoder', function() { //回调函数
-				var geocoder = new AMap.Geocoder({
-					city: "010" //城市，默认：“全国”
-				});
-				var lnglatXY = [data.position.lng, data.position.lat]; //地图上所标点的坐标
-				geocoder.getAddress(lnglatXY, function(status, result) {
-					if(status === 'complete' && result.info === 'OK') {
-						//获得了有效的地址信息:
-						//即，result.regeocode.formattedAddress
-					} else {
-						//获取地址失败
-					}
-				});
-			})
-		}
-
-		function onError(e) {
-			alert(data.msg);
-		}
 		var swiper = new Swiper('.banner .swiper-container', {
 			pagination: '.banner .swiper-pagination',
 			paginationClickable: true,
@@ -299,35 +267,39 @@
 			}
 		}
 
-		(function() {
-			var iframe = document.getElementById('test').contentWindow;
-			setTimeout(function() {
-				iframe.postMessage('hello', 'http://m.amap.com/picker/');
-			}, 500)
-			window.addEventListener("message", function(e) {
-				window.setaddress(e.data.address)
-			}, false);
-		}());
-
 		function setaddress(addr) {
 			$('div.address').html(addr);
-			cleartimeout();
 			$('#test').hide();
 			$('#mengceng').hide();
 			$('.address').css('color', '#333');
 		}
+
 		$('#framegoback').click(function() {
-			cleartimeout();
 			$('#test').hide();
 			$('#mengceng').hide();
 		});
 
-		function cleartimeout() {
-			poitimeoutflag = null;
-		}
-		var poitimeoutflag = null;
 		$(function() {
-			var mapurl = '';
+			//获取城市数据
+			getData('area', function(res) {
+				for(i in res.data) {
+					var obj = res.data[i];
+					$('#select_city').append('<option value="' + obj.F_Id + '">' + obj.F_FullName + '</option>');
+				}
+			});
+
+			$('#select_city').change(function() {
+				var cityId = $(this).val();
+				getData(['area', cityId], function(data) {
+					var obj = eval(data.data);
+					$('#select_district').empty();
+					$('#select_district').append('<option value="0">选择区</option>');
+					for(i in obj) {
+						$('#select_district').append('<option value="' + obj[i].F_Id + '">' + obj[i].F_FullName + '</option>');
+					}
+				});
+			});
+
 			$('a#address').click(function() {
 				$('#test').show();
 				$('#mengceng').show();
@@ -417,7 +389,7 @@
 				} else {
 					$('.err_city_district').hide();
 				}
-				if(address == '' || address == ' ' || address == '请输入详细地址') {
+				if(!address || address == '请输入详细地址') {
 					$('.err_address').show();
 					return false;
 				} else {
