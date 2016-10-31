@@ -203,10 +203,11 @@
 			<div id="framegoback" style="position:fixed;width:50px;height:50px;z-index:99999;top:1px;left:1px;"></div>
 			<iframe id="test" src='http://m.amap.com/picker/?key=11be5d75018d5bf370f5c5bcab522eb8' style='width:100%;height:100%;position:fixed;top:0px;z-index:99;background-color:#ffffff;display:none;' frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
 		</div>
+		<input type="hidden" id="cityId" />
+		<input type="hidden" id="disId" />
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script src="js/base.js"></script>
-	<script src="js/util.js"></script>
 	<script src="js/swiper-3.2.7.jquery.min.js"></script>
 	<script>
 		(function() {
@@ -278,45 +279,41 @@
 			$('#test').hide();
 			$('#mengceng').hide();
 		});
-		var host = 'http://www.wsdlcd.com/webapi/api/';
+
 		$(function() {
-			$.ajax({
-				type: "get",
-				url: host+'area',
-				async:false,
-				success: function(res){
-					for(i in res.data) {
-						var obj = res.data[i];
-						$('#select_city').append('<option value="' + obj.F_Id + '">' + obj.F_FullName + '</option>');
-					}
+			getData('area', function(res) {
+				for(i in res) {
+					var obj = res[i];
+					$('#select_city').append('<option value="' + obj.Id + '">' + obj.FullName + '</option>');
 				}
 			});
 
 			$('#select_city').change(function() {
-//				var cityId = $(this).val();
-//				getData(['area', cityId], function(data) {
-//					var obj = eval(data.data);
-//					$('#select_district').empty();
-//					$('#select_district').append('<option value="0">选择区</option>');
-//					for(i in obj) {
-//						$('#select_district').append('<option value="' + obj[i].F_Id + '">' + obj[i].F_FullName + '</option>');
-//					}
-//				});
+				var cityId = $(this).val();
+				$('#cityId').val(cityId);
+				getData(['area', cityId], function(data) {
+					var obj = eval(data);
+					$('#select_district').empty();
+					$('#select_district').append('<option value="0">选择区</option>');
+					for(i in obj) {
+						$('#select_district').append('<option value="' + obj[i].Id + '">' + obj[i].FullName + '</option>');
+					}
+				});
 			});
-
+			$('#select_district').change(function() {
+				var disId = $(this).val();
+				$('#disId').val(disId);
+			});
+			
 			$('a#address').click(function() {
 				$('#test').show();
 				$('#mengceng').show();
 			});
-			$('.item .J_returnLng').click(function(e) {
-				alert(e);
-			});
-			IU.util.init();
 			$('.v1-1tishi1').hide();
-			$("span.shuaxin").html(IU.util.createCode());
+			$("span.shuaxin").html(createCode());
 			//刷新图片
 			$("span.shuaxin").click(function() {
-				var code = IU.util.createCode();
+				var code = createCode();
 				$("span.shuaxin").html(code);
 			});
 
@@ -334,8 +331,10 @@
 				var phoneNum = $('.phoneNum').val();
 				var imgcode_code = $('.imgcode_code').val();
 				var userinfoYzm = $('.userinfoYzm ').val();
-				var city = $('.cityId').val();
-				var distrcit = $('.disId').val();
+				var city = $('#cityId').val();
+				var distrcit = $('#disId').val();
+				var cityName = $("#select_city").find("option:selected").text();
+				var distrcitName = $("#select_district").find("option:selected").text();
 				var address = $('.address').html();
 				address = $.trim($('<div/>').html(address).text());
 				var vcode = $('.vcode').val();
@@ -353,7 +352,7 @@
 				} else {
 					$('.err_mobile').hide();
 				}
-				if(!IU.util.checkPhone(phoneNum)) {
+				if(!checkPhone(phoneNum)) {
 					$('.err_mobile').text('请输入正确的手机号码');
 					$('.err_mobile').show();
 					return false;
@@ -399,10 +398,20 @@
 				} else {
 					$('.err_address').hide();
 				}
-				window.location.href = "success.html";
+				var param = {};
+				param.Contacts = realName;
+				param.Phone = phoneNum;
+				param.City = city;
+				param.District = distrcit;
+				param.CityName = cityName;
+				param.DistrictName = distrcitName;
+				param.Street = address;
+				param.Status = '5';
+				postData('order', param, function(res) {
+					window.location.href = "success.html";
+				});
 			});
-
-			IU.util.sendMsg($('#validCodeId'), 60);
+			sendMsg($('#validCodeId'), 60);
 		});
 	</script>
 
