@@ -39,7 +39,7 @@
 							</p>
 						</a>
 					</div>
-					<div class="dingdanBtn">			
+					<div class="dingdanBtn">
 						<a href="javascript:void(0)" class="qxddBtn" datas="339556">取消订单</a>
 						<span>已支付</span>
 					</div>
@@ -60,7 +60,7 @@
 							</p>
 						</a>
 					</div>
-					<div class="dingdanBtn">			
+					<div class="dingdanBtn">
 						<a href="javascript:void(0)" class="qxddBtn" data-id="339556">取消订单</a>
 						<a href="javascript:void(0)" class="ljjfBtn" data-id="339556">立即支付</a>
 					</div>
@@ -68,11 +68,18 @@
 			</ul>
 		</div>
 	</body>
-	<script src="js/jquery-1.7.2.min.js" ></script>
-	<script src="js/base.js" ></script>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
 	<script>
-		$('.qxddBtn').click(function(){
+		$('.qxddBtn').click(function() {
 			jump("cancel.html");
 		});
+		$(function() {
+			var phone = localStorage.getItem('phone');
+			getData('order/getByPhone?phone=' + phone, function(data) {
+				console.log(data);
+			});
+		});
 	</script>
+
 </html>

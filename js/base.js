@@ -1,5 +1,5 @@
-var host = 'http://www.wsdlcd.com/webapi/api/';
-//var host = 'http://localhost:3536/api/';
+//var host = 'http://www.wsdlcd.com/webapi/api/';
+var host = 'http://localhost:3536/api/';
 
 function getData(param, callback) {
 	if($.isArray(param)) param = param.join('/');
@@ -15,11 +15,11 @@ function getData(param, callback) {
 
 function postData(actionName, param, callback) {
 	$.ajax({
-		type:"post",
+		type: "post",
 		url: host + actionName,
 		data: param,
-		async:true,
-		success: function(res){
+		async: true,
+		success: function(res) {
 			callback(res.data);
 		}
 	});
@@ -132,3 +132,12 @@ function sendMsg(id, time) {
 		}
 	}
 };
+$(function() {
+	var urls = ['login.html', 'index.html', 'usercenter.html'];
+	var arry = location.href.split('/');
+	var url = arry[arry.length - 1];
+	if(urls.indexOf(url) < 0) {
+		var phoneNo = localStorage.getItem('phone');
+		if(!phoneNo) jump('login.html');
+	}
+});

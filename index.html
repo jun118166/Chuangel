@@ -281,7 +281,13 @@
 		});
 
 		$(function() {
-			getData('area', function(res) {
+			var phone = localStorage.getItem('phone');
+			if(phone){
+				$('#txtMobile').val(phone);
+				$('#txtMobile').attr('readonly','true');
+			}
+			
+			getData('area/get', function(res) {
 				for(i in res) {
 					var obj = res[i];
 					$('#select_city').append('<option value="' + obj.Id + '">' + obj.FullName + '</option>');
@@ -291,7 +297,7 @@
 			$('#select_city').change(function() {
 				var cityId = $(this).val();
 				$('#cityId').val(cityId);
-				getData(['area', cityId], function(data) {
+				getData(['area/get', cityId], function(data) {
 					var obj = eval(data);
 					$('#select_district').empty();
 					$('#select_district').append('<option value="0">选择区</option>');
@@ -304,7 +310,7 @@
 				var disId = $(this).val();
 				$('#disId').val(disId);
 			});
-			
+
 			$('a#address').click(function() {
 				$('#test').show();
 				$('#mengceng').show();
@@ -407,7 +413,8 @@
 				param.DistrictName = distrcitName;
 				param.Street = address;
 				param.Status = '5';
-				postData('order', param, function(res) {
+				postData('order/create', param, function(res) {
+					localStorage.setItem('phone', phoneNum);
 					window.location.href = "success.html";
 				});
 			});
