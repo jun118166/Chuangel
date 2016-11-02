@@ -282,11 +282,11 @@
 
 		$(function() {
 			var phone = localStorage.getItem('phone');
-			if(phone){
+			if(phone) {
 				$('#txtMobile').val(phone);
-				$('#txtMobile').attr('readonly','true');
+				$('#txtMobile').attr('readonly', 'true');
 			}
-			
+
 			getData('area/get', function(res) {
 				for(i in res) {
 					var obj = res[i];
@@ -413,8 +413,9 @@
 				param.DistrictName = distrcitName;
 				param.Street = address;
 				param.Status = '5';
+				param.Cost_status = '0';
 				postData('order/create', param, function(res) {
-					localStorage.setItem('phone', phoneNum);
+					sessionStorage.setItem('phone', phoneNum);
 					window.location.href = "success.html";
 				});
 			});

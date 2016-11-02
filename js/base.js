@@ -6,7 +6,7 @@ function getData(param, callback) {
 	$.ajax({
 		type: "get",
 		url: host + param,
-		async: true,
+		async: false,
 		success: function(res) {
 			callback(res.data);
 		}
@@ -18,9 +18,10 @@ function postData(actionName, param, callback) {
 		type: "post",
 		url: host + actionName,
 		data: param,
-		async: true,
+		async: false,
 		success: function(res) {
-			callback(res.data);
+			if(res.code == "1") callback(res.data);
+			else alert(res.msg);
 		}
 	});
 }
@@ -101,6 +102,9 @@ function sendMsg(id, time) {
 				$('.err_imgcode').hide();
 				$('.err_login_msg').hide();
 			}
+			getData('SMS/SendMsg?phone=' + uMobile, function(data) {
+				console.log(data);
+			});
 		}
 		flag = false;
 	});
@@ -132,12 +136,45 @@ function sendMsg(id, time) {
 		}
 	}
 };
+/*
+ * 获取状态名称
+ */
+function getstatus(i) {
+	var s = '';
+	switch(i) {
+		case '5':
+			s = '创建成功';
+			break;
+		default:
+			break;
+	}
+	return s;
+}
+/*
+ * 获取状态图片
+ */
+function getstatusImg(i) {
+	var img = 'createdorder';
+	switch(i) {
+		case '10':
+			break;
+		default:
+			break;
+	}
+	return img;
+}
+/*
+ * 获取支付状态
+ */
+function getcost(i) {
+	return i ? '未支付' : '已支付';
+}
 $(function() {
 	var urls = ['login.html', 'index.html', 'usercenter.html'];
 	var arry = location.href.split('/');
 	var url = arry[arry.length - 1];
 	if(urls.indexOf(url) < 0) {
-		var phoneNo = localStorage.getItem('phone');
+		var phoneNo = sessionStorage.getItem('phone');
 		if(!phoneNo) jump('login.html');
 	}
 });

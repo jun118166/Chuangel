@@ -58,7 +58,7 @@
 		$(function() {
 			//判断是否登陆
 			$('.yidenglu').hide();
-			var phone = localStorage.getItem('phone');
+			var phone = sessionStorage.getItem('phone');
 			if(phone) {
 				$('.yidenglu p').html('欢迎您,' + phone);
 				$('.yidenglu').show();

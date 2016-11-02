@@ -21,7 +21,7 @@
 	</head>
 
 	<body>
-		<div class="wrapper">
+		<div class="wrapper" id="app" v-cloak>
 			<div class="dingdanjindu">
 				<div class="dingdanjinduT">
 					<strong>订单状态:创建成功</strong>
@@ -54,14 +54,14 @@
 					</p>
 				</ul>
 			</div>
-			<div class="yichuangjian mt20">
+			<div class="yichuangjian mt20" v-cloak>
 				<dl>
 					<dt>
             <p>用户信息</p></dt>
 					<dd>
-						<p><span>维修人：</span>呵呵</p>
-						<p><span>手机号：</span>13795332078</p>
-						<p><span>维修地址：</span>上海市黄浦区南京西路231号人民公园内上海当代艺术馆3层</p>
+						<p><span>维修人：</span>{{item.Contacts}}</p>
+						<p><span>手机号：</span>{{item.Phone}}</p>
+						<p><span>维修地址：</span>{{item.Street}}</p>
 					</dd>
 				</dl>
 			</div>
@@ -70,12 +70,12 @@
 					<dt>
             <p>订单详情</p></dt>
 					<dd>
-						<p><span>型号：</span>iPhone 6S </p>
-						<p><span>订单号：</span>339071</p>
-						<p><span>故障详情：</span>边框受伤（更换）</p>
-						<p><span>维修方案：</span>更换品牌外壳</p>
-						<p><span>下单时间：</span>2016-10-26 18:17:48</p>
-						<p><span>备注：</span>呵呵</p>
+						<p><span>型号：</span>{{item.Sku_name}}</p>
+						<p><span>订单号：</span>{{item.OrderCode}}</p>
+						<p><span>故障详情：</span>{{item.Trouble}}</p>
+						<p><span>维修方案：</span>{{item.Repair}}</p>
+						<p><span>下单时间：</span>{{item.CreatorTime}}</p>
+						<p><span>备注：</span>{{item.Remark}}</p>
 						<p><span></span></p>
 					</dd>
 				</dl>
@@ -83,10 +83,10 @@
 			<div class="yichuangjian mt20">
 				<dl>
 					<dt>
-            <p>维修价格<span>¥425</span></p></dt>
+            <p>维修价格<span>¥{{item.Total_cost}}</span></p></dt>
 					<dd>
-						<p><span>上门费：</span>¥0 </p>
-						<p><span>服务费：</span>¥0</p>
+						<p><span>上门费：</span>¥{{item.Home_cost}}</p>
+						<p><span>服务费：</span>¥{{item.Service_cost}}</p>
 						<p><span>支付状态：</span>未支付</p>
 					</dd>
 				</dl>
@@ -95,16 +95,43 @@
 				<dl>
 					<dt style="    background: linear-gradient(0, #e6e6e6, #e6e6e6 50%, transparent 50%) top left / 100% 2px no-repeat;">
             			<p>
-            				<span style="float:left;padding-left: 9%;color: #333333;">总额：<strong style="color: #292b5b;">¥425</strong></span>
+            				<span style="float:left;padding-left: 9%;color: #333333;">总额：<strong style="color: #292b5b;" id="txtTotal_cost">¥{{item.Total_cost}}</strong></span>
             				<a href="#">立即支付</a>
             			</p>
 					</dt>
 				</dl>
 			</div>
 			<div class="xiayibu">
-				<a href="javascript:cancelorder(339071);">取消订单</a>
+				<a href="cancel.html?oid={{item.Id}}">取消订单</a>
 			</div>
 		</div>
 	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				item: {},
+				id: geturlparam('oid')
+			},
+			methods: {
+				loadData: function() {
+					var self = this;
+					getData(['order/get', this.id], function(data) {
+						console.log(data);
+						self.item = data[0];
+					});
+				}
+			},
+			ready: function() {
+				this.loadData();
+			},
+			components: {
+
+			}
+		});
+	</script>
 
 </html>

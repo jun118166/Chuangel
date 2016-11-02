@@ -99,7 +99,8 @@
 				var customer = {};
 				customer.Phone = phoneNum;
 				postData('customer/Create', customer, function(data) {
-					localStorage.setItem('phone', phoneNum);
+					
+					sessionStorage.setItem('phone', phoneNum);
 					location.href = 'usercenter.html';
 				});
 			});

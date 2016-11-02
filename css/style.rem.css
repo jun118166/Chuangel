@@ -23,7 +23,7 @@ body .topfixed{position:fixed;top:0;z-index:9;width:100%;}
 .wxbx ul li span{display:block;overflow:hidden;margin-bottom:0.6rem;height:0.9rem;color:#999;text-overflow:ellipsis;white-space:nowrap;font-size:0.6rem;line-height:0.9rem}
 .wxbx ul li img{height:3.5rem}
 .wxbx{position:relative;overflow:hidden}
-.kfzx{position:absolute;top:0.25rem;right:0.25rem;width:1.7rem;height:3.7rem;border-radius:30px;background-color:#1c90ea;text-align:center}
+.kfzx{position:fixed;top:13.25rem;right:0.25rem;width:1.7rem;height:3.7rem;border-radius:30px;background-color:#1c90ea;text-align:center;z-index: 99;}
 .kfzx img{margin-top:0.5rem;width:1rem;height:1.025rem}
 .kfzx span{display:block;margin:0 auto;width:0.75rem;color:#fff;font-size:0.6rem;line-height:0.9rem}
 .xiadan{position:relative;overflow:hidden;padding:0 0.75rem 0 3.5rem;background-color:#292b5b;}
