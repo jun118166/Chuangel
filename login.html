@@ -26,7 +26,7 @@
 				<img src="img/login1.png">
 			</div>
 			<div class="v1-1tishi">
-				<p class="err_login_msg" style="display: none;">手机号为空或格式错误</p>
+				<p class="err_login_msg" style="display: none;">短信验证码错误！</p>
 			</div>
 			<form method="post" action="" class="loginForm">
 				<ul class="xinxi" style="padding:0 .75rem;">
@@ -99,10 +99,14 @@
 				var customer = {};
 				customer.Phone = phoneNum;
 				postData('customer/Create', customer, function(data) {
-					
-					sessionStorage.setItem('phone', phoneNum);
-					location.href = 'usercenter.html';
-				});
+					if(data.code == "0") {
+						$('.err_login_msg').text(data.msg);
+						$('.err_login_msg').show();
+					} else {
+						sessionStorage.setItem('phone', phoneNum);
+						location.href = 'usercenter.html';
+					}
+				}, true);
 			});
 
 			sendMsg($('#validCodeId'), 60);

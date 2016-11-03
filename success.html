@@ -21,7 +21,7 @@
 	</head>
 
 	<body>
-		<div class="wrapper">
+		<div class="wrapper" id="app">
 			<div class="chenggong">
 				<p>下单成功</p>
 			</div>
@@ -54,16 +54,30 @@
 			</div>-->
 			<div class="chenggongbtn">
 				<p><span><a href="index.html" class="jxhsbtn">返回首页</a></span>
-				   <span><a href="order-detail.html?oid=337810&amp;otype=1">订单详情</a></span></p>
+					<span><a href="order-detail.html?oid={{id}}">订单详情</a></span></p>
 			</div>
 		</div>
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script src="js/base.js"></script>
+	<script src="js/vue.min.js"></script>
 	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				id: geturlparam('oid'),
+				action: geturlparam('action')
+			},
+			ready: function() {
+				
+			},
+			components: {
+
+			}
+		});
 		$(function() {
 			$('.dingdanhao').hide();
-			if(geturlparam('oid')) {
+			if(geturlparam('oid')&&geturlparam('action')) {
 				$('.emptydiv').hide();
 				$('.dingdanhao').show();
 				$($('.chenggongbtn p span a')[0]).text('订单详情');

@@ -13,15 +13,15 @@ function getData(param, callback) {
 	});
 }
 
-function postData(actionName, param, callback) {
+function postData(actionName, param, callback, isfull) {
 	$.ajax({
 		type: "post",
 		url: host + actionName,
 		data: param,
 		async: false,
 		success: function(res) {
-			if(res.code == "1") callback(res.data);
-			else alert(res.msg);
+			if(isfull) callback(res);
+			else callback(res.data);
 		}
 	});
 }
@@ -142,6 +142,9 @@ function sendMsg(id, time) {
 function getstatus(i) {
 	var s = '';
 	switch(i) {
+		case '0':
+			s = '已取消';
+			break;
 		case '5':
 			s = '创建成功';
 			break;
@@ -156,7 +159,8 @@ function getstatus(i) {
 function getstatusImg(i) {
 	var img = 'createdorder';
 	switch(i) {
-		case '10':
+		case '0':
+			img = 'yiquxiao';
 			break;
 		default:
 			break;
@@ -173,7 +177,7 @@ $(function() {
 	var urls = ['login.html', 'index.html', 'usercenter.html'];
 	var arry = location.href.split('/');
 	var url = arry[arry.length - 1];
-	if(urls.indexOf(url) < 0) {
+	if(urls.indexOf(url) < 0 && url) {
 		var phoneNo = sessionStorage.getItem('phone');
 		if(!phoneNo) jump('login.html');
 	}

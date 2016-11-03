@@ -24,15 +24,16 @@
 		<div class="wrapper" id="app" v-cloak>
 			<div class="dingdanjindu">
 				<div class="dingdanjinduT">
-					<strong>订单状态:创建成功</strong>
+					<strong>订单状态:{{item.statusName}}</strong>
 					<span>请耐心等待,客服将会马上与你联系</span>
 				</div>
 				<ul class="dingdanjinduM">
 					<p class="dingdanjinduCur">
 						<strong style="padding:0 5px 0 8px; margin-left:0;">
-                        <img src="img/paidanzhong.png">
+                        <img v-if="{{item.statusName=='5'}}" src="img/paidanzhong.png">
+                        <img v-else src="img/paidanzhonged.png">
                     </strong>
-						<span>派单中</span>
+						<span>待派单</span>
 					</p>
 					<p style="left:28%;">
 						<strong>
@@ -93,7 +94,7 @@
 			</div>
 			<div class="yichuangjian" style="padding-bottom: 3.25rem;">
 				<dl>
-					<dt style="    background: linear-gradient(0, #e6e6e6, #e6e6e6 50%, transparent 50%) top left / 100% 2px no-repeat;">
+					<dt v-if="{{!item.Cost_status&&item.Status=='5'}}" style="    background: linear-gradient(0, #e6e6e6, #e6e6e6 50%, transparent 50%) top left / 100% 2px no-repeat;">
             			<p>
             				<span style="float:left;padding-left: 9%;color: #333333;">总额：<strong style="color: #292b5b;" id="txtTotal_cost">¥{{item.Total_cost}}</strong></span>
             				<a href="#">立即支付</a>
@@ -101,7 +102,7 @@
 					</dt>
 				</dl>
 			</div>
-			<div class="xiayibu">
+			<div class="xiayibu" v-if="{{item.Status=='5'}}">
 				<a href="cancel.html?oid={{item.Id}}">取消订单</a>
 			</div>
 		</div>
@@ -119,9 +120,10 @@
 			methods: {
 				loadData: function() {
 					var self = this;
-					getData(['order/get', this.id], function(data) {
+					getData('order/GetByCode?orderCode=' + this.id, function(data) {
 						console.log(data);
-						self.item = data[0];
+						self.item = data;
+						self.item.statusName = getstatus(self.item.Status);
 					});
 				}
 			},

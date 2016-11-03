@@ -129,7 +129,7 @@
 						<a contenteditable="false" id="address" class="loca" style="margin-right: 15px;"></a>
 					</li>
 					<li class="tishi v1-1tishi1 err_address" style="display: none;">请输入详细地址</li>
-					<li class="tishi v1-1tishi1 err_coupons" style="display: none;"></li>
+					<li class="tishi v1-1tishi1 err_coupons" style="display: none;">验证码错误</li>
 				</ul>
 				<a class="chaxun done">立即下单</a>
 			</div>
@@ -281,7 +281,7 @@
 		});
 
 		$(function() {
-			var phone = localStorage.getItem('phone');
+			var phone = sessionStorage.getItem('phone');
 			if(phone) {
 				$('#txtMobile').val(phone);
 				$('#txtMobile').attr('readonly', 'true');
@@ -415,9 +415,14 @@
 				param.Status = '5';
 				param.Cost_status = '0';
 				postData('order/create', param, function(res) {
-					sessionStorage.setItem('phone', phoneNum);
-					window.location.href = "success.html";
-				});
+					if(res.code == "0") {
+						$('.err_coupons').text(res.mes);
+						$('.err_coupons').show();
+					} else {
+						sessionStorage.setItem('phone', phoneNum);
+						window.location.href = "success.html?&oid=" + res.data;
+					}
+				}, true);
 			});
 			sendMsg($('#validCodeId'), 60);
 		});

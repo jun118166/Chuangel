@@ -41,11 +41,13 @@
 			<li class="v1-1tishi1 err_comment" style="display: none;">请输入内容</li>
 		</div>
 	</body>
-	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
 	<script>
-		$(function(){
+		$(function() {
 			$('.quxiaoTip').hide();
 		});
+
 		function codeLength(cls, maxNum, clsCnt) {
 			var curCount = 0;
 			var remainderCount;
@@ -65,25 +67,19 @@
 		}
 
 		$(".submitComment").click(function() {
-			var oid = $('.oid').val();
 			var content = $('.textarea').val();
 			if(content == '') {
 				$('.err_comment').text('请输入你的反馈意见').show();
 				return false;
 			}
 			$('.err_comment').hide();
-			$.ajax({
-				type: 'post',
-				url: '/index/feedback',
-				data: {
-					'content': content
-				},
-				dataType: 'json',
-				success: function(data) {
-					$(".msg").text(data.msg);
-					$(".quxiaoTip").show();
-				}
-			});
+			var param = {};
+			param.Phone = sessionStorage.getItem('phone');
+			param.Content = content;
+			postData('Feedback/Create', param, function(res) {
+				$(".msg").text(res.msg);
+				$(".quxiaoTip").show();
+			}, true);
 		});
 
 		$(".quxiaomain .pingjiacgBtn").click(function() {
