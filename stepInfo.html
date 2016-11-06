@@ -6,7 +6,38 @@
 		<title>填写信息</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 		<meta content="telephone=no" name="format-detection">
+		<!--<link rel="stylesheet" href="css/mui.min.css" />-->
+		<link rel="stylesheet" href="css/mui.picker.min.css" />
 		<link rel="stylesheet" href="css/style.rem.css" />
+		<style>
+			.selectadd .select {
+				background: url(img/selectadd.png) right center no-repeat #fff;
+				background-size: 1.25rem 0.3rem;
+			}
+			
+			.mui-dtpicker-title h5 {
+				display: none;
+				/*box-sizing: border-box;*/
+			}
+			
+			.mui-picker {
+				background: #fff;
+			}
+			
+			.mui-btn {
+				border: none;
+				background-color: #eee;
+				color: #888;
+			}
+			
+			.mui-btn-blue {
+				color: #292b5b;
+			}
+			
+			.mui-dtpicker-header button {
+				font-size: 11pt;
+			}
+		</style>
 		<script type="text/javascript">
 			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
 				function c() {
@@ -56,26 +87,12 @@
 						<span>
                     		<select id="select_city">
 								<option value="0">选择市</option>
-								<option value="310100">上海市</option>
 							</select>
                 		</span>
 					</p>
 					<p>
 						<select id="select_district" value="310101">
 							<option value="0">选择区</option>
-							<option value="310101">黄浦区</option>
-							<option value="310115">浦东新区</option>
-							<option value="310114">嘉定区</option>
-							<option value="310113">宝山区</option>
-							<option value="310112">闵行区</option>
-							<option value="310110">杨浦区</option>
-							<option value="310109">虹口区</option>
-							<option value="310108">闸北区</option>
-							<option value="310107">普陀区</option>
-							<option value="310106">静安区</option>
-							<option value="310105">长宁区</option>
-							<option value="310104">徐汇区</option>
-							<option value="310117">松江区</option>
 						</select>
 					</p>
 				</li>
@@ -88,15 +105,15 @@
 				<li class="selectadd" style="padding: .5rem 0;">
 					<p>
 						<span>
-                    		<select id="select_city">
-								<option value="0">选择上门时间</option>
-							</select>
+                    		<input class="select" value="选择上门时间"  readonly="readonly" id="select_time"/>
+								<!--<option value="0">选择上门时间</option>-->
                 		</span>
 					</p>
 					<p>
-						<select id="select_district" value="310101">
+						<input class="select" value="选择门店" readonly="readonly" id="select_store" />
+						<!--<select id="select_district" value="310101">
 							<option value="0">选择门店</option>
-						</select>
+						</select>-->
 					</p>
 				</li>
 				<li>
@@ -112,11 +129,48 @@
 				<span>提交订单等同于同意<a class="fuwutiaokuan">传天羽维修服务条款</a></span></div>
 			<a href="javascript:step_done();">提交订单</a>
 		</div>
+		<div id="mengceng" style="position:absolute;width:100%;height:1360px;z-index:98;background-color:#ffffff;display:none;">
+			<div id="framegoback" style="position:fixed;width:50px;height:50px;z-index:99999;top:1px;left:1px;"></div>
+			<iframe id="test" src='http://m.amap.com/picker/?key=11be5d75018d5bf370f5c5bcab522eb8' style='width:100%;height:100%;position:fixed;top:0px;z-index:99;background-color:#ffffff;display:none;' frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
+		</div>
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script src="js/base.js"></script>
-	<script src="js/util.js"></script>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.picker.min.js"></script>
+	<!--<script src="js/store.data.js"></script>-->
 	<script>
+		(function() {
+			var iframe = document.getElementById('test').contentWindow;
+			setTimeout(function() {
+				iframe.postMessage('hello', 'http://m.amap.com/picker/');
+			}, 1000)
+			window.addEventListener("message", function(e) {
+				window.setaddress(e.data.address)
+			}, false);
+		}());
+	</script>
+	<script>
+		var storeData = [];
+		//弹出高德地图
+		var mock = {
+			log: function(result) {
+				window.parent.setIFrameResult('log', result);
+			}
+		}
+		console = mock;
+		window.Konsole = {
+			exec: function(code) {
+				code = code || '';
+				try {
+					var result = window.eval(code);
+					window.parent.setIFrameResult('result', result);
+				} catch(e) {
+					window.parent.setIFrameResult('error', e);
+				}
+			}
+		}
+
 		function step_done() {
 			var realName = $('.realName').val();
 			var phoneNum = $('.phoneNum').val();
@@ -148,7 +202,7 @@
 			} else {
 				$('.err_mobile').hide();
 			}
-			if(!IU.util.checkPhone(phoneNum)) {
+			if(!checkPhone(phoneNum)) {
 				$('.err_mobile').text('请输入正确的手机号码');
 				$('.err_mobile').show();
 				return false;
@@ -209,17 +263,74 @@
 				$('.address').css('color', '#888');
 			}
 		}
+
+		function setaddress(addr) {
+			$('div.address').html(addr);
+			$('#test').hide();
+			$('#mengceng').hide();
+			$('.address').css('color', '#333');
+		}
+
+		$('#framegoback').click(function() {
+			$('#test').hide();
+			$('#mengceng').hide();
+		});
+		$('#select_time').click(function() {
+			var options = {
+				type: "time"
+			}
+			var picker = new mui.DtPicker(options);
+			picker.show(function(rs) {
+				$('#select_time').val(rs);
+				picker.dispose();
+			});
+		});
 		$(function() {
-			IU.util.init();
 			$('.v1-1tishi1').hide();
-			$("span.shuaxin").html(IU.util.createCode());
+			$("span.shuaxin").html(createCode());
 			//刷新图片
 			$("span.shuaxin").click(function() {
-				var code = IU.util.createCode();
+				var code = createCode();
 				$("span.shuaxin").html(code);
 			});
-
-			IU.util.sendMsg($('#validCodeId'), 60);
+			sendMsg($('#validCodeId'), 60);
+			getData('area/get', function(res) {
+				for(i in res) {
+					var obj = res[i];
+					$('#select_city').append('<option value="' + obj.Id + '">' + obj.FullName + '</option>');
+				}
+			});
+			var self = this;
+			getData('Area/GetStroe', function(res) {
+				self.storeData = res;
+			});
+			$("#select_store").click(function() {
+				var cityPicker = new mui.PopPicker({
+					layer: 2
+				});
+				cityPicker.setData(self.storeData);
+				cityPicker.show(function(items) {
+					$("#select_store").val(items[1].text);
+					cityPicker.dispose();
+				});
+			});
+			$('#select_city').change(function() {
+				var cityId = $(this).val();
+				$('#cityId').val(cityId);
+				getData(['area/get', cityId], function(data) {
+					var obj = eval(data);
+					$('#select_district').empty();
+					$('#select_district').append('<option value="0">选择区</option>');
+					for(i in obj) {
+						$('#select_district').append('<option value="' + obj[i].Id + '">' + obj[i].FullName + '</option>');
+					}
+				});
+			});
+			//弹出地图
+			$('a#address').click(function() {
+				$('#test').show();
+				$('#mengceng').show();
+			});
 		});
 	</script>
 

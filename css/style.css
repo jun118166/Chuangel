@@ -246,3 +246,28 @@ footer li{float:left;width:33.3%;height:70px;font-size:26px;line-height:70px}
 .topjine p span{color:#292B5B;font-size:40px}
 .topjine p span em{font-style:normal;font-size:30px}
 .sjxx dt a.sbmc{float:right;padding-right:0;width:320px;background:0 0;color:#333;text-align:right;font-weight:700}
+
+.wldanhao{
+	height: 84px;
+    font-size: 26px;	
+}
+.wldanhao input{
+	position: absolute;
+    left: 0;
+    line-height: 84px;
+    font-size: 26px;
+    text-indent: 24px;
+    width: 70%;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;	
+}
+.wldanhao a{
+	line-height: 86px;
+    position: absolute;
+    right: 0;
+    width: 30%;
+    text-align: center;
+    background: #ccc;
+    color: #fff;	
+}
