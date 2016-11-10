@@ -25,51 +25,16 @@
 			<div class="xzjx2">
 				<div class="sjxx">
 					<dl class="xuanze1">
-						<dt><span>品牌/型号</span><a href="javascript:;">苹果 iPhone7</a></dt>
+						<dt><span>品牌/型号</span><a href="javascript:;">{{productInfo.Brand}}{{productInfo.Name}}</a></dt>
 					</dl>
 					<dl class="mt20" id="gujia3" style="display: block;">
 						<dt><span>选择故障</span><strong id="show_choose_fault">屏幕                            
 						</strong></dt>
 						<dd>
 							<ul>
-								<!--<li>
-									<a class="sjxx-text choose_fault sjxx-textcur" id="choose_fault_id_34" fid="34" style="display: block;">
-										屏幕
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text choose_fault" id="choose_fault_id_37" fid="37" style="display: block;">
-										外壳/边框
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text choose_fault" id="choose_fault_id_57" fid="57" style="display: block;">
-										按键
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text choose_fault" id="choose_fault_id_63" fid="63" style="display: block;">
-										声音
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text choose_fault" id="choose_fault_id_68" fid="68" style="display: block;">
-										摄像与拍照
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text choose_fault" id="choose_fault_id_84" fid="84" style="display: block;">
-										电池电源
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text choose_fault" id="choose_fault_id_154" fid="154" style="display: block;">
-										其它故障
-									</a>
-								</li>-->
-								<li v-for = "item in troubleList">
-									<a class="sjxx-text choose_fault" id="choose_fault_id_{{item.Id}}" fid="{{item.Id}}" style="display: block;">
-										{{item.Name}}
+								<li v-for="item in troubleList">
+									<a class="sjxx-text choose_fault" id="choose_fault_id_{{item.Key}}" fid="{{item.Key}}" style="display: block;">
+										{{item.Value}}
 									</a>
 								</li>
 							</ul>
@@ -83,39 +48,9 @@
 				</dt>
 						<dd>
 							<ul>
-								<li>
-									<a class="sjxx-text wait_choose_color sjxx-textcur" cid="23" mid="343" fid="34" style="display: block;">
-										全色系
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text wait_choose_color" cid="48" mid="343" fid="37" style="display: none;">
-										亮黑色
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text wait_choose_color" cid="23" mid="343" fid="57" style="display: none;">
-										全色系
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text wait_choose_color" cid="23" mid="343" fid="63" style="display: none;">
-										全色系
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text wait_choose_color" cid="23" mid="343" fid="68" style="display: none;">
-										全色系
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text wait_choose_color" cid="23" mid="343" fid="84" style="display: none;">
-										全色系
-									</a>
-								</li>
-								<li>
-									<a class="sjxx-text wait_choose_color" cid="23" mid="343" fid="154" style="display: none;">
-										全色系
+								<li v-for="item in colors">
+									<a class="sjxx-text wait_choose_color" cid="{{item.cid}}" mid="{{productInfo.Id}}" fid="{{item.fid}}" style="display: none;">
+										{{item.text}}
 									</a>
 								</li>
 							</ul>
@@ -127,101 +62,10 @@
 						<dt><span>维修方案</span><a href="javascript:;" class="tip">维修说明</a></dt>
 						<dd>
 							<ul class="one">
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_34 sjxx-textcur" id="fdid_35" mid="343" fid="34" fdid="35" cid="23" rp_id="3603" style="display: block;">
-										外屏碎（显示正常）
-										<span class="show_price">¥850</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_34" id="fdid_36" mid="343" fid="34" fdid="36" cid="23" rp_id="3779" style="display: block;">
-										内屏碎（液晶坏）
-										<span class="show_price">¥2000</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_37" id="fdid_45" mid="343" fid="37" fdid="45" cid="48" rp_id="3870" style="display: none;">
-										边框受伤（更换）
-										<span class="show_price">¥650</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_37" id="fdid_46" mid="343" fid="37" fdid="46" cid="48" rp_id="3869" style="display: none;">
-										后壳受伤（更换）
-										<span class="show_price">¥650</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_57" id="fdid_59" mid="343" fid="57" fdid="59" cid="23" rp_id="3966" style="display: none;">
-										HOME键（主屏幕键）
-										<span class="show_price">¥370</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_63" id="fdid_65" mid="343" fid="63" fdid="65" cid="23" rp_id="3970" style="display: none;">
-										扬声器外放
-										<span class="show_price">¥210</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_63" id="fdid_66" mid="343" fid="63" fdid="66" cid="23" rp_id="3967" style="display: none;">
-										麦克风/话筒
-										<span class="show_price">¥290</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_63" id="fdid_67" mid="343" fid="63" fdid="67" cid="23" rp_id="3964" style="display: none;">
-										听筒
-										<span class="show_price">¥190</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_68" id="fdid_69" mid="343" fid="68" fdid="69" cid="23" rp_id="3969" style="display: none;">
-										前置摄像头
-										<span class="show_price">¥310</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_68" id="fdid_70" mid="343" fid="68" fdid="70" cid="23" rp_id="3963" style="display: none;">
-										后置摄像头
-										<span class="show_price">¥360</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_84" id="fdid_85" mid="343" fid="84" fdid="85" cid="23" rp_id="3962" style="display: none;">
-										无法充电
-										<span class="show_price">¥290</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_154" id="fdid_156" mid="343" fid="154" fdid="156" cid="23" rp_id="3968" style="display: none;">
-										感应故障（亮度与通话不黑屏）
-										<span class="show_price">¥310</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_154" id="fdid_157" mid="343" fid="154" fdid="157" cid="23" rp_id="3965" style="display: none;">
-										震动故障
-										<span class="show_price">¥190</span>
-										<span class="not_show_price" style="display: none;">¥0</span>
-									</a>
-								</li>
-								<li>
-									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_154" id="fdid_158" mid="343" fid="154" fdid="158" cid="23" rp_id="3923" style="display: none;">
-										调试
-										<span class="show_price">¥50</span>
+								<li v-for="item in repairs">
+									<a class="repair_plan_select sjxx-text3 fault_detail fault_detail_{{item.fid}} sjxx-textcur" cid="{{productInfo.ColorId}}" id="fdid_{{item.id}}" mid="{{productInfo.id}}" fid="{{item.fid}}" rp_id="{{item.cid}}" style="display: block;">
+										{{item.name}}
+										<span class="show_price">¥{{item.price}}</span>
 										<span class="not_show_price" style="display: none;">¥0</span>
 									</a>
 								</li>
@@ -237,19 +81,17 @@
 			</div>
 			<div class="detailtip" style="display: none;">
 				<div class="detailtip1">
-					<dl class="fault_desc fault_desc_34" style="display: none;"><dt>外屏碎（显示正常）</dt>
-						<dd>
-							<p>维修方案：更换总成对换(质保半年)旧屏收回 </p>
-							<p>维修时长：40分</p>
-							<p>维修说明：内外屏是一体合成，外屏碎也是总成一起更换，但只收取外屏费用，请放心使用，免费上门一对一专属服务！</p>
-						</dd><dt class="bortop">内屏碎（液晶坏）</dt>
-						<dd>
-							<p>维修方案：更换总成(质保半年)旧屏收回</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：内外屏是一体合成，外屏碎也是总成一起更换，但只收取外屏费用，请放心使用，免费上门一对一专属服务！</p>
-						</dd>
+					<dl v-for="item in repairDescs" class="fault_desc fault_desc_{{item.id}}" style="display: none;">
+						<div v-for="desc in item.list">
+							<dt>{{desc.name}}</dt>
+							<dd>
+								<p>维修方案：{{desc.methods}} </p>
+								<p>维修时长：{{desc.time}}分</p>
+								<p>维修说明：{{desc.remark}}</p>
+							</dd>
+						</div>
 					</dl>
-					<dl class="fault_desc fault_desc_37" style="display: none;"><dt>边框受伤（更换）</dt>
+					<!--<dl class="fault_desc fault_desc_37" style="display: none;"><dt>边框受伤（更换）</dt>
 						<dd>
 							<p>维修方案：更换品牌外壳</p>
 							<p>维修时长：40分</p>
@@ -327,7 +169,7 @@
 							<p>维修时长：40分</p>
 							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
 						</dd>
-					</dl>
+					</dl>-->
 				</div>
 				<div class="detailtipclose"></div>
 			</div>
@@ -341,14 +183,27 @@
 			el: '#app',
 			data: {
 				troubleList: [],
-				id: geturlparam('oid')
+				id: geturlparam('mid'),
+				productInfo: {},
+				colors: [],
+				repairs: [],
+				repairDescs: []
 			},
 			methods: {
 				loadData: function() {
 					var self = this;
-					getData('trouble/GetList?layers=1', function(data) {
-						console.log(data);
-						self.troubleList = data;
+					getData('product/get?id=' + self.id, function(data) {
+						self.productInfo = data.product;
+						self.troubleList = data.troubles;
+						self.repairs = data.repairs;
+						self.repairDescs = data.repairDescs;
+						for(i in data.troubles) {
+							self.colors.push({
+								fid: data.troubles[i].Key,
+								text: self.productInfo.Color,
+								cid: self.productInfo.ColorId
+							});
+						}
 					});
 				}
 			},
@@ -438,7 +293,7 @@
 				$(".wait_choose_color[fid=" + fid + "]").show();
 				$('#show_choose_color').text('');
 				$('#gujia1 dd').show();
-				$('#gujia4').hide();
+				//				$('#gujia4').hide();
 
 				//如果只有一个颜色选择的可见，那么直接选中他
 				if($('.wait_choose_color:visible').length == 1) {

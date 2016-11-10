@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>设备信息</title>
@@ -18,92 +19,57 @@
 			})(), false);
 		</script>
 	</head>
+
 	<body>
-		<div class="wrapper">
+		<div class="wrapper" id="app" v-cloak>
 			<div class="jixinglist">
 				<ul>
-					<li>
-						<div class="jixinglistli">
-							<a href="device.html?mid=1" class="huishoulist">
-								<img src="img/iphone7.png"/>
-								<span>iPhone7</span>
+					<li v-for="item in items">
+						<div class="jixinglistli" v-for="product in item.children">
+							<a href="device.html?mid={{product.Id}}" class="huishoulist">
+								<img :src="product.Img" />
+								<span>{{product.Name}}</span>
 							</a>
 						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=1" class="huishoulist">
-								<img src="img/iphone7.png"/>
-								<span>iPhone7</span>
-							</a>
-						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=1" class="huishoulist">
-								<img src="img/iphone7.png"/>
-								<span>iPhone7</span>
-							</a>
-						</div>						
 					</li>
-					<li>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>						
-					</li>
-					<li>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>						
-					</li>
-					<li>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>
-						<div class="jixinglistli">
-							<a href="device.html?mid=2" class="huishoulist">
-								<img src="img/iphone6s.png"/>
-								<span>iPhone6</span>
-							</a>
-						</div>						
-					</li>					
 				</ul>
 			</div>
 		</div>
 	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				items: []
+			},
+			methods: {
+				loadData: function() {
+					var self = this;
+					getData('Product/Get', function(data) {
+						var n = Math.ceil(data.length / 3);
+						for(var i = 0; i < n; i++) {
+							var o = {};
+							o.children = [];
+							for(var j = 0; j < data.length; j++) {
+								if(i * 3 <= j && j < (i + 1) * 3) {
+									o.children.push(data[j]);
+								}
+							}
+							self.items.push(o);
+						}
+					});
+				}
+			},
+			ready: function() {
+				this.loadData();
+			},
+			components: {
+
+			}
+		});
+	</script>
+
 </html>

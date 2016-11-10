@@ -1,4 +1,4 @@
-//var host = 'http://www.wsdlcd.com/webapi/api/';
+//var host = 'http://chuangelapi.shaoshengweb.cn/api/';
 var host = 'http://localhost:3536/api/';
 
 function getData(param, callback) {
@@ -174,9 +174,10 @@ function getcost(i) {
 	return i ? '未支付' : '已支付';
 }
 $(function() {
-	var urls = ['login.html', 'index.html', 'usercenter.html'];
+	var urls = ['login.html', 'index.html', 'usercenter.html', 'device.html', 'device-method.html', 'stepInfo.html','choice-phone.html'];
 	var arry = location.href.split('/');
 	var url = arry[arry.length - 1];
+	if(url.indexOf('?') > 0) url = url.substr(0, url.indexOf('?'));
 	if(urls.indexOf(url) < 0 && url) {
 		var phoneNo = sessionStorage.getItem('phone');
 		if(!phoneNo) jump('login.html');
