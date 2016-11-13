@@ -25,7 +25,7 @@
 			<div class="xzjx2">
 				<div class="sjxx">
 					<dl class="xuanze1">
-						<dt><span>品牌/型号</span><a href="javascript:;">{{productInfo.Brand}}{{productInfo.Name}}</a></dt>
+						<dt><span>品牌/型号</span><a class="sbmc" href="javascript:;">{{productInfo.Brand}}{{productInfo.Name}}</a></dt>
 					</dl>
 					<dl class="mt20" id="gujia3" style="display: block;">
 						<dt><span>选择故障</span><strong id="show_choose_fault">屏幕                            
@@ -57,8 +57,7 @@
 						</dd>
 					</dl>
 					<dl class="mt20" id="gujia4">
-						<input type="hidden" id="fid" value="">
-						<input type="hidden" id="fdid" value="">
+
 						<dt><span>维修方案</span><a href="javascript:;" class="tip">维修说明</a></dt>
 						<dd>
 							<ul class="one">
@@ -82,7 +81,7 @@
 			<div class="detailtip" style="display: none;">
 				<div class="detailtip1">
 					<dl v-for="item in repairDescs" class="fault_desc fault_desc_{{item.id}}" style="display: none;">
-						<div v-for="desc in item.list">
+						<div v-for="desc in item.list" id="desc_{{desc.cid}}">
 							<dt>{{desc.name}}</dt>
 							<dd>
 								<p>维修方案：{{desc.methods}} </p>
@@ -91,85 +90,6 @@
 							</dd>
 						</div>
 					</dl>
-					<!--<dl class="fault_desc fault_desc_37" style="display: none;"><dt>边框受伤（更换）</dt>
-						<dd>
-							<p>维修方案：更换品牌外壳</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质 </p>
-						</dd><dt class="bortop">后壳受伤（更换）</dt>
-						<dd>
-							<p>维修方案：更换品牌外壳</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质 </p>
-						</dd>
-					</dl>
-					<dl class="fault_desc fault_desc_57" style="display: block;"><dt>HOME键（主屏幕键）</dt>
-						<dd>
-							<p>维修方案：更换home键</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd>
-					</dl>
-					<dl class="fault_desc fault_desc_63" style="display: none;"><dt>扬声器外放</dt>
-						<dd>
-							<p>维修方案：更换扬声器</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd><dt class="bortop">麦克风/话筒</dt>
-						<dd>
-							<p>维修方案：更换尾插接口及排线</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd><dt class="bortop">听筒</dt>
-						<dd>
-							<p>维修方案：更换听筒</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd>
-					</dl>
-					<dl class="fault_desc fault_desc_68" style="display: none;"><dt>前置摄像头</dt>
-						<dd>
-							<p>维修方案：更换前置摄像头</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd><dt class="bortop">后置摄像头</dt>
-						<dd>
-							<p>维修方案：更换后置摄像头</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd>
-					</dl>
-					<dl class="fault_desc fault_desc_84" style="display: none;"><dt>无法充电</dt>
-						<dd>
-							<p>维修方案：更换尾插接口及排线</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd>
-					</dl>
-					<dl class="fault_desc fault_desc_154" style="display: none;"><dt>感应故障（亮度与通话不黑屏）</dt>
-						<dd>
-							<p>维修方案：更换感应器</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd><dt class="bortop">震动故障</dt>
-						<dd>
-							<p>维修方案：更换振动器</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd><dt class="bortop">调试</dt>
-						<dd>
-							<p>维修方案：调试</p>
-							<p>维修时长：30分</p>
-							<p>维修说明：免费上门，一对一当面服务，绝不碰顾客信息，注重个人隐私安全，为顾客提供价格便宜、安全可靠的维修服务! </p>
-						</dd>
-					</dl>
-					<dl class="fault_desc" id="fault_desc_id_156" style="display: none;"><dt>感应故障（亮度与通话不黑屏）</dt>
-						<dd>
-							<p>维修方案：更换感应器</p>
-							<p>维修时长：40分</p>
-							<p>维修说明：来自零配件交易市场，经过Hi维修技术团队认证过的优质零配件，原装品质</p>
-						</dd>
-					</dl>-->
 				</div>
 				<div class="detailtipclose"></div>
 			</div>
@@ -307,7 +227,26 @@
 				if($('#xiayibu_btn').hasClass('gragbg')) {
 					return;
 				}
-				var color_id = $('.fault_detail.sjxx-textcur').attr('cid');
+				var colorId = $('.fault_detail.sjxx-textcur').attr('cid');
+				//				var ftroubleId = $('.fault_detail.sjxx-textcur').attr('fid');
+				var troubleId = $('.fault_detail.sjxx-textcur').attr('rp_id');
+				var productId = geturlparam('mid');
+				var price = $('.fault_detail.sjxx-textcur .show_price').html().replace('¥', '');
+				var troubleName = $('#desc_' + troubleId).find('dt')[0].innerHTML;
+				var troubleDesc = $('#desc_' + troubleId).find('p')[0].innerHTML.replace('维修方案：', '');
+				var arrayTrouble = JSON.parse(localStorage.getItem("arrayTrouble"));
+				if(!arrayTrouble) arrayTrouble = [];
+				arrayTrouble.push({
+					colorId: colorId,
+					troubleId: troubleId,
+					productId: productId,
+					price: price,
+					troubleName: troubleName,
+					troubleDesc: troubleDesc,
+					product: $('.sbmc').text() + $('#show_choose_color').text()
+				});
+				localStorage.setItem('productInfo', JSON.stringify(vm.productInfo));
+				localStorage.setItem("arrayTrouble", JSON.stringify(arrayTrouble));
 				location.href = "device-method.html";
 			});
 			$(".wait_choose_color").click(function() {

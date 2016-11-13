@@ -73,8 +73,10 @@
 					<dd>
 						<p><span>型号：</span>{{item.Sku_name}}</p>
 						<p><span>订单号：</span>{{item.OrderCode}}</p>
-						<p><span>故障详情：</span>{{item.Trouble}}</p>
-						<p><span>维修方案：</span>{{item.Repair}}</p>
+						<div v-for="det in details">
+							<p><span>故障详情：</span>{{det.troubleName}}</p>
+							<p><span>维修方案：</span>{{det.troubleDesc}}</p>
+						</div>
 						<p><span>下单时间：</span>{{item.CreatorTime}}</p>
 						<p><span>备注：</span>{{item.Remark}}</p>
 						<p><span></span></p>
@@ -115,7 +117,8 @@
 			el: '#app',
 			data: {
 				item: {},
-				id: geturlparam('oid')
+				id: geturlparam('oid'),
+				details: []
 			},
 			methods: {
 				loadData: function() {
@@ -124,6 +127,8 @@
 						console.log(data);
 						self.item = data;
 						self.item.statusName = getstatus(self.item.Status);
+						self.details = JSON.parse(data.Detail);
+						self.item.Sku_name = self.details[0].product;
 					});
 				}
 			},

@@ -27,7 +27,7 @@
 			}
 			
 			.gzxx {
-				width: 60%;
+				width: 100%;
 				display: inline-block;
 				background-size: 1px 100%;
 				padding: 0.65rem 0.5rem 0.65rem 0.5rem;
@@ -75,25 +75,26 @@
 	</head>
 
 	<body>
-		<div class="wrapper" id="app">
+		<div class="wrapper" id="app" v-cloak>
 			<div class="xzjx2">
 				<div class="sjxx">
 					<dl class="xuanze1" style="display: block;">
 						<dt><span>已选故障</span>
-							<a href="javascript:;" class="sbmc">苹果iPhone 6S 金色</a>
+							<a href="javascript:;" class="sbmc">{{name}}</a>
 						</dt>
-						<dt style="padding: 0;">
+						<dt style="padding: 0;" v-for="item in troubles">
 							<div class="gzxx">
-								<p><span>故障问题：</span>声音问题</p>
-								<p><span>处理方式：</span>换麦克风</p>
-								<p><span>价格：</span>¥<em class="price">210</em></p>
+								<p><span>故障问题：</span>{{item.troubleName}}</p>
+								<p><span>处理方式：</span>{{item.troubleDesc}}</p>
+								<p><span>价格：</span>¥<em class="price">{{item.price}}</em></p>
 							</div>
-							<div class="scgz">
+							<!--<div class="scgz">
 								<a class="scgzBtn" href="javascript:;">删除</a>
-							</div>
+							</div>-->
 						</dt>
+						<dt><a href="device.html?mid={{product.Id}}">继续添加</a></dt>
 						<dt>
-							<p class="fr"><span>总金额：</span>¥<em class="total">210</em></p>
+							<p class="fr"><span>总金额：</span>¥<em class="total">{{total}}</em></p>
 						</dt>
 					</dl>
 				</div>
@@ -126,29 +127,43 @@
 			el: '#app',
 			data: {
 				deliverys: [],
-				troubles: []
+				troubles: [],
+				name: '',
+				total: 0,
+				product: JSON.parse(localStorage.getItem('productInfo'))
 			},
 			methods: {
 				loadtroubles: function() {
 					var self = this;
-					getData('ItemsData/GetList?parentid=7f1952ca-2aa4-444e-bb1c-e54602cb7e04',function(res){
+					getData('ItemsData/GetList?parentid=7f1952ca-2aa4-444e-bb1c-e54602cb7e04', function(res) {
 						self.deliverys = res;
 					});
 				},
-				choiceTrouble: function(e){
+				choiceTrouble: function(e) {
 					$(this).addClass("sjxx-textcur ");
 					$(this).parent("li ").siblings("li ").find(".sjxx-text3 ").removeClass("sjxx-textcur ");
 					$(this).parents("dl ").next("dl ").show();
+				},
+				loadData: function() {
+					var obj = JSON.parse(localStorage.getItem('productInfo'));
+					if(obj) {
+						this.name = obj.Brand + obj.Name + ' ' + obj.Color;
+						this.troubles = JSON.parse(localStorage.getItem('arrayTrouble'));
+						var self = this;
+						this.troubles.map(function(i) {
+							self.total = parseInt(i.price) + parseInt(self.total);
+						});
+					}
 				}
 			},
 			ready: function() {
+				this.loadData();
 				this.loadtroubles();
 			},
 			components: {
 
 			}
 		});
-
 	</script>
 	<script>
 		$(function() {
@@ -172,7 +187,7 @@
 			});
 			$('.xiayibu').click(function() {
 				$('.v1-1tishi').hide();
-				var len = $('.scgzBtn').length;
+				var len = $('.gzxx').length;
 				if(!len) {
 					$('.err_login_msg').text('请至少添加一个故障清单');
 					$('.v1-1tishi').show();
@@ -183,6 +198,7 @@
 					$('.v1-1tishi').show();
 					return true;
 				}
+				localStorage.setItem('total', vm.total);
 				jump('stepInfo.html?type=' + id);
 			});
 		});

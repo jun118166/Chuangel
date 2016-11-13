@@ -104,6 +104,7 @@
 						$('.err_login_msg').show();
 					} else {
 						sessionStorage.setItem('phone', phoneNum);
+						sessionStorage.setItem('repairMan', JSON.stringify(data.data));
 						location.href = 'usercenter.html';
 					}
 				}, true);

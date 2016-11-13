@@ -8,7 +8,28 @@
 		<meta content="telephone=no" name="format-detection">
 		<link rel="stylesheet" href="css/style.rem.css" />
 		<style>
-			.fwlc{background-color: initial;padding-bottom: 2.5rem;}
+			.fwlc {
+				background-color: initial;
+				padding-bottom: 2.5rem;
+			}
+			
+			.msg input[type='number'] {
+				height: 2.25rem;
+				border: 0;
+				border-radius: 6px;
+				color: #333;
+				text-indent: 0.75rem;
+				font-size: 0.7rem;
+				width: 80%;
+			}
+			
+			.pingjiacgBtn {
+				display: inline-block;
+				width: 50%;
+				float: left;
+				background: url(img/shuxian.png) right top no-repeat;
+				background-size: 1px 100%;
+			}
 		</style>
 		<script type="text/javascript">
 			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
@@ -24,166 +45,151 @@
 	</head>
 
 	<body>
-		<div class="wrapper">
+		<div class="wrapper" id="app" v-cloak>
 			<nav class="fwlcNav">
 				<p datas=".doing" class="lc">
 					<a href="javascript:;"><span>进行中</span></a><strong></strong></p>
 				<p datas=".already" class="wt">
 					<a href="javascript:;"><span>已完成</span></a><strong></strong></p>
 				<p datas=".evaluated" class="xy">
-					<a href="javascript:;"><span>已评价</span></a>
-				</p>
+					<a href="javascript:;"><span>已评价</span></a><strong></strong></p>
 			</nav>
 			<div class="fwlc doing">
 				<ul class="wodedingdan">
-					<li>
+					<li v-for="item in itemds">
 						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>进行中</strong></p>
+							<p><span>{{item.product}}</span><strong>进行中</strong></p>
 						</div>
 						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
+							<img src="img/createdorder.png">
+							<p>故障问题：{{item.troubleName}}</p>
+							<p>故障详情：{{item.troubleDesc}}</p>
+							<p>价格：<span>¥ {{item.Price}}</span></p>
+						</div>
+						<div class="dingdanBtn">
+							<a href="javascript:void(0)" @click="complete(item.Id,item.OrderId)" class="ljjfBtn">订单完成</a>
 						</div>
 					</li>
-					<li>
+					<li v-if="itemds.length < 1">
 						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>进行中</strong></p>
-						</div>
-						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>售后中</strong></p>
-						</div>
-						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
+							<p>无数据</p>
 						</div>
 					</li>
 				</ul>
 			</div>
 			<div class="fwlc already">
 				<ul class="wodedingdan">
-					<li>
+					<li v-for="item in itemas">
 						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>已完成</strong></p>
+							<p><span>{{item.product}}</span><strong>已完成</strong></p>
 						</div>
 						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
+							<img src="img/createdorder.png">
+							<p>故障问题：{{item.troubleName}}</p>
+							<p>故障详情：{{item.troubleDesc}}</p>
+							<p>价格：<span>¥ {{item.Price}}</span></p>
 						</div>
 					</li>
-					<li>
+					<li v-if="itemas.length < 1">
 						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>已完成</strong></p>
-						</div>
-						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>已完成</strong></p>
-						</div>
-						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
+							<p>无数据</p>
 						</div>
 					</li>
 				</ul>
 			</div>
 			<div class="fwlc evaluated">
 				<ul class="wodedingdan">
-					<li>
+					<li v-for="item in itemes">
 						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>已评价</strong></p>
+							<p><span>{{item.product}}</span><strong>已评价</strong></p>
 						</div>
 						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
+							<img src="img/createdorder.png">
+							<p>故障问题：{{item.troubleName}}</p>
+							<p>故障详情：{{item.troubleDesc}}</p>
+							<p>价格：<span>¥ {{item.Price}}</span></p>
 						</div>
 					</li>
-					<li>
+					<li v-if="itemes.length < 1">
 						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>已评价</strong></p>
-						</div>
-						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>已评价</strong></p>
-						</div>
-						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
-						</div>
-					</li>
-					<li>
-						<div class="dingdanzt">
-							<p><span>苹果iPhone 6S  黑色</span><strong>已评价</strong></p>
-						</div>
-						<div class="dingdanxq">
-							<a href="gcs-order-detail.html?oid=1">
-								<img src="img/createdorder.png">
-								<p>故障问题：屏幕故障</p>
-								<p>故障详情：换显示屏（旧屏交换维修）</p>
-								<p>价格：<span>¥ 190</span></p>
-							</a>
+							<p>无数据</p>
 						</div>
 					</li>
 				</ul>
 			</div>
-			<div class="xiayibu">
-				<a href="gcs-order-detail.html">我要体现</a>
+			<!--<div class="xiayibu">
+				<a href="gcs-order-detail.html?courierid={{courierid}}">我要体现</a>
+			</div>-->
+			<div class="quxiaoTip" style="display: none;">
+				<div class="quxiaomain">
+					<p class="msg"><input type="number" min="0" id="receivedAmount" placeholder="请输入实收金额"></p>
+					<a href="javascript:void(0)" class="pingjiacgBtn" @click="cancel">取消</a>
+					<a href="javascript:void(0)" class="pingjiacgBtn" @click="completeOrder">确定</a>
+				</div>
 			</div>
-			<input type="hidden" value="evaluated" class="urltag">
+			<input type="hidden" value="doing" class="urltag">
+			<input type="hidden" id="chooseId" />
+			<input type="hidden" id="chooseOrderId" />
 		</div>
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/vue.min.js"></script>
 	<script>
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				itemds: [],
+				itemas: [],
+				itemes: [],
+				courierid: geturlparam('courierid')
+			},
+			methods: {
+				loadData: function() {
+					var self = this;
+					getData('OrderRecord/GetList?courierid=' + this.courierid, function(res) {
+						res.map(function(i) {
+							i.troubleName = JSON.parse(i.Detail)[0].troubleName;
+							i.troubleDesc = JSON.parse(i.Detail)[0].troubleDesc;
+							i.product = JSON.parse(i.Detail)[0].product;
+							if(i.Status == "0") self.itemds.push(i);
+							if(i.Status == "1") self.itemas.push(i);
+							if(i.Status == "2") self.itemes.push(i);
+						});
+					});
+				},
+				complete: function(e, j) {
+					$('#chooseOrderId').val(j);
+					$('#chooseId').val(e);
+					$('.quxiaoTip').show();
+				},
+				cancel: function() {
+					$('.quxiaoTip').hide();
+				},
+				completeOrder: function() {
+					var pirce = $('#receivedAmount').val();
+					if(!pirce) {
+						alert('请输入实收金额！');
+						return true;
+					}
+					var obj = {
+						Id: $('#chooseId').val(),
+						Price: $('#receivedAmount').val(),
+						OrderId: $('#chooseOrderId').val()
+					}
+					var self = this;
+					postData('OrderRecord/Complete', obj, function(res) {
+						alert(res.msg);
+						self.itemds = [];
+						self.loadData();
+						$('.quxiaoTip').show();
+					}, true);
+				}
+			},
+			ready: function() {
+				this.loadData();
+			}
+		});
 		$(function() {
 			var urltag = $('.urltag').val();
 			$('body .fwlc').hide();

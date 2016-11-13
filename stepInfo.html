@@ -51,14 +51,14 @@
 		</script>
 	</head>
 
-	<body>
+	<body id="app" v-cloak>
 		<div class="tianxinxi">
 			<div class="weixiubaojia">
-				<img src="img/iphone7.png">
-				<strong>iPhone7外屏碎（显示正常）</strong>
-				<span>更换总成对换(质保半年)旧屏收回	</span>
+				<img :src="product.Img">
+				<strong>{{product.Name}}{{trouble.troubleName}}</strong>
+				<span>{{trouble.troubleDesc}}</span>
 				<div class="weixiubaojiafei">
-					<p>维修报价：<strong id="repairprice">¥850</strong></p>
+					<p>维修报价：<strong id="repairprice">¥{{trouble.price}}</strong></p>
 				</div>
 			</div>
 		</div>
@@ -106,14 +106,10 @@
 					<p>
 						<span>
                     		<input class="select" value="选择上门时间"  readonly="readonly" id="select_time"/>
-								<!--<option value="0">选择上门时间</option>-->
                 		</span>
 					</p>
 					<p>
 						<input class="select" value="选择门店" readonly="readonly" id="select_store" />
-						<!--<select id="select_district" value="310101">
-							<option value="0">选择门店</option>
-						</select>-->
 					</p>
 				</li>
 				<li>
@@ -125,7 +121,7 @@
 			</ul>
 		</div>
 		<div class="xiayibu1">
-			<div class="tijiaodingdan">总额：<strong>¥</strong><strong id="price">850</strong>
+			<div class="tijiaodingdan">总额：<strong>¥</strong><strong id="price">{{total}}</strong>
 				<span>提交订单等同于同意<a class="fuwutiaokuan">传天羽维修服务条款</a></span></div>
 			<a href="javascript:step_done();">提交订单</a>
 		</div>
@@ -133,12 +129,15 @@
 			<div id="framegoback" style="position:fixed;width:50px;height:50px;z-index:99999;top:1px;left:1px;"></div>
 			<iframe id="test" src='http://m.amap.com/picker/?key=11be5d75018d5bf370f5c5bcab522eb8' style='width:100%;height:100%;position:fixed;top:0px;z-index:99;background-color:#ffffff;display:none;' frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
 		</div>
+		<input type="hidden" id="Hometime"/>
+		<input type="hidden" id="StoreId"/>
+		<input type="hidden" id="Store"/>
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script src="js/base.js"></script>
 	<script src="js/mui.min.js"></script>
 	<script src="js/mui.picker.min.js"></script>
-	<!--<script src="js/store.data.js"></script>-->
+	<script src="js/vue.min.js"></script>
 	<script>
 		(function() {
 			var iframe = document.getElementById('test').contentWindow;
@@ -151,6 +150,29 @@
 		}());
 	</script>
 	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				product: {},
+				trouble: {},
+				total: 0
+			},
+			methods: {
+				loadData: function() {
+					this.product = JSON.parse(localStorage.getItem('productInfo'));
+					this.trouble = JSON.parse(localStorage.getItem('arrayTrouble'))[0];
+					this.total = localStorage.getItem('total');
+					var phone = sessionStorage.getItem('phone');
+					if(phone) {
+						$('#txtMobile').val(phone);
+						$('#txtMobile').attr('readonly', 'true');
+					}
+				},
+			},
+			ready: function() {
+				this.loadData();
+			},
+		});
 		var storeData = [];
 		//弹出高德地图
 		var mock = {
@@ -176,20 +198,13 @@
 			var phoneNum = $('.phoneNum').val();
 			var imgcode_code = $('.imgcode_code').val();
 			var userinfoYzm = $('.userinfoYzm ').val();
-			var city = $('.cityId').val();
-			var distrcit = $('.disId').val();
+			var city = $('#select_city').val();
+			var distrcit = $('#select_district').val();
+			var cityName = $("#select_city").find("option:selected").text();
+			var distrcitName = $("#select_district").find("option:selected").text();
 			var address = $('.address').html();
 			address = $.trim($('<div/>').html(address).text());
 			var remark = $('.remark').val();
-			var vcode = $('.vcode').val();
-			var plid = $('.plid').val();
-			var couponid = $('.useCoupons').val();
-			var useInputCoupon = $('.useInputCoupon').val();
-			var inputCouponCode = '';
-			var ref = $('.ref').val();
-			if(useInputCoupon == 1) {
-				inputCouponCode = $('#input_coupon').val();
-			}
 			if(realName == '') {
 				$('.err_real_name').show();
 				return false;
@@ -247,7 +262,34 @@
 			} else {
 				$('.err_address').hide();
 			}
-			window.location.href = "success.html?oid=1";
+			var param = {};
+			param.Contacts = realName;
+			param.Phone = phoneNum;
+			param.City = city;
+			param.District = distrcit;
+			param.CityName = cityName;
+			param.DistrictName = distrcitName;
+			param.Street = address;
+			param.Status = '5';
+			param.Cost_status = '0';
+			param.Detail = localStorage.getItem('arrayTrouble');
+			param.ExpressType = geturlparam('type');
+			param.Hometime = $('#Hometime').val();
+			param.StoreId = $('#StoreId').val();
+			param.Store = $('#Store').val();
+			param.Remark = remark;
+			postData('order/create', param, function(res) {
+				if(res.code == "0") {
+					$('.err_validcode').text(res.msg);
+					$('.err_validcode').show();
+				} else {
+					localStorage.removeItem('arrayTrouble');
+					localStorage.removeItem('productInfo');
+					localStorage.removeItem('total');
+					sessionStorage.setItem('phone', phoneNum);
+					window.location.href = "success.html?oid=" + res.data;
+				}
+			}, true);
 		}
 
 		function addressonfocus() {
@@ -282,6 +324,7 @@
 			var picker = new mui.DtPicker(options);
 			picker.show(function(rs) {
 				$('#select_time').val(rs);
+				$('#Hometime').val(rs);
 				picker.dispose();
 			});
 		});
@@ -310,6 +353,8 @@
 				});
 				cityPicker.setData(self.storeData);
 				cityPicker.show(function(items) {
+					$("#StoreId").val(items[1].value);
+					$("#Store").val(items[1].value);
 					$("#select_store").val(items[1].text);
 					cityPicker.dispose();
 				});

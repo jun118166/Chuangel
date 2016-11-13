@@ -1,14 +1,15 @@
 //var host = 'http://chuangelapi.shaoshengweb.cn/api/';
 var host = 'http://localhost:3536/api/';
 
-function getData(param, callback) {
+function getData(param, callback, isfull) {
 	if($.isArray(param)) param = param.join('/');
 	$.ajax({
 		type: "get",
 		url: host + param,
 		async: false,
 		success: function(res) {
-			callback(res.data);
+			if(isfull) callback(res);
+			else callback(res.data);
 		}
 	});
 }
@@ -148,6 +149,9 @@ function getstatus(i) {
 		case '5':
 			s = '创建成功';
 			break;
+		case '10':
+			s = '派单中';
+			break;
 		default:
 			break;
 	}
@@ -174,7 +178,7 @@ function getcost(i) {
 	return i ? '未支付' : '已支付';
 }
 $(function() {
-	var urls = ['login.html', 'index.html', 'usercenter.html', 'device.html', 'device-method.html', 'stepInfo.html','choice-phone.html'];
+	var urls = ['login.html', 'index.html', 'usercenter.html', 'device.html', 'device-method.html', 'stepInfo.html', 'choice-phone.html'];
 	var arry = location.href.split('/');
 	var url = arry[arry.length - 1];
 	if(url.indexOf('?') > 0) url = url.substr(0, url.indexOf('?'));

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>申请提款</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<style>
+			.wodedingdan li:first-child {
+				margin-top: 0.5rem
+			}
+			
+			.dingdanxq {
+				padding: 0.25rem 0.75rem 0.75rem;
+				height: auto
+			}
+		</style>
+		<script>
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="wrapper" id="app" v-cloak style="padding-top: 2.5rem;">
+			<div class="topjine">
+				<p>可提现金额：<span><em>¥</em>{{total}}</span></p>
+			</div>
+			<div style="padding-bottom: 2.5rem;">
+				<ul class="wodedingdan">
+					<li v-if="item in items">
+						<div class="dingdanzt">
+							<p><span>{{item.product}}</span><strong>{{item.paystatusName}}</strong></p>
+						</div>
+						<div class="dingdanxq">
+							<p>交易金额：<span>¥ {{item.Pay}}</span></p>
+							<p>交易时间：<span>{{item.LastModifyTime}}</span></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="xiayibu">
+				<a href="javascript:;" @click="cashapply(courierid)">提现</a>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				items: [],
+				total: 0,
+				courierid: geturlparam('courierid')
+			},
+			methods: {
+				loadData: function() {
+					var self = this;
+					getData('OrderRecord/GetPayList?courierid=' + this.courierid, function(res) {
+						res.map(function(i) {
+							if(i.PayStatus == '0') {
+								self.total = parseInt(self.total) + parseInt(i.Pay);
+							} else {
+								i.paystatusName = i.PayStatus == '1' ? '提现中' : '提现完成';
+								i.product = JSON.parse(i.Detail)[0].product;
+								self.items.push(i);
+							}
+						});
+					});
+				},
+				cashapply: function(e) {
+					getData('OrderCashApply/Apply?courierid=' + this.courierid, function(res) {
+						alert(res.msg);
+						history.back(-1);
+					}, true);
+				}
+			},
+			ready: function() {
+				this.loadData();
+			}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的银行卡</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" href="css/style.rem.css" />
+		<style>
+			.dingdanxq {
+				height: auto;
+				padding: .5rem .75rem;
+			}
+		</style>
+		<script>
+			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
+				function c() {
+					var d = document.documentElement;
+					var cw = d.clientWidth || 640;
+					d.style.fontSize = (20 * (cw / 320)) > 40 ? 40 + 'px' : (20 * (cw / 320)) + 'px';
+				}
+				c();
+				return c;
+			})(), false);
+		</script>
+	</head>
+
+	<body>
+		<div class="wrapper" id="app">
+			<div>
+				<ul class="wodedingdan">
+					<li>
+						<div class="dingdanxq">
+							<p>开户银行：<span>交通银行</span></p>
+							<p>银行账号：<span>6222600110047273276</span></p>
+						</div>
+					</li>
+					<li>
+						<div class="dingdanxq">
+							<p>开户银行：<span>交通银行</span></p>
+							<p>银行账号：<span>6222600110047273276</span></p>
+						</div>
+					</li>
+					<li>
+						<div class="dingdanxq">
+							<p>开户银行：<span>交通银行</span></p>
+							<p>银行账号：<span>6222600110047273276</span></p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="xiayibu">
+				<a href="javascript:;" @click="cashapply(courierid)">添加</a>
+			</div>
+			<div class="quxiaoTip">
+				<div class="quxiaomain">
+					<ul>
+						<li>
+							<select>
+								<option>--请选择开户行--</option>
+							</select>
+						</li>
+						<li><input type="text" placeholder="请输入银行账号" /></li>
+						<li><input type="text" placeholder="请输入账户姓名" /></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/base.js"></script>
+	<script src="js/vue.min.js"></script>
+	<script>
+	</script>
+
+</html>
