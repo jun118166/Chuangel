@@ -129,9 +129,9 @@
 			<div id="framegoback" style="position:fixed;width:50px;height:50px;z-index:99999;top:1px;left:1px;"></div>
 			<iframe id="test" src='http://m.amap.com/picker/?key=11be5d75018d5bf370f5c5bcab522eb8' style='width:100%;height:100%;position:fixed;top:0px;z-index:99;background-color:#ffffff;display:none;' frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="no" allowtransparency="yes"></iframe>
 		</div>
-		<input type="hidden" id="Hometime"/>
-		<input type="hidden" id="StoreId"/>
-		<input type="hidden" id="Store"/>
+		<input type="hidden" id="Hometime" />
+		<input type="hidden" id="StoreId" />
+		<input type="hidden" id="Store" />
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
 	<script src="js/base.js"></script>
@@ -159,13 +159,15 @@
 			},
 			methods: {
 				loadData: function() {
-					this.product = JSON.parse(localStorage.getItem('productInfo'));
-					this.trouble = JSON.parse(localStorage.getItem('arrayTrouble'))[0];
-					this.total = localStorage.getItem('total');
-					var phone = sessionStorage.getItem('phone');
-					if(phone) {
-						$('#txtMobile').val(phone);
-						$('#txtMobile').attr('readonly', 'true');
+					if(JSON.parse(localStorage.getItem('arrayTrouble'))) {
+						this.product = JSON.parse(localStorage.getItem('productInfo'));
+						this.trouble = JSON.parse(localStorage.getItem('arrayTrouble'))[0];
+						this.total = localStorage.getItem('total');
+						var phone = localStorage.getItem('phone');
+						if(phone) {
+							$('#txtMobile').val(phone);
+							$('#txtMobile').attr('readonly', 'true');
+						}
 					}
 				},
 			},
@@ -286,7 +288,7 @@
 					localStorage.removeItem('arrayTrouble');
 					localStorage.removeItem('productInfo');
 					localStorage.removeItem('total');
-					sessionStorage.setItem('phone', phoneNum);
+					localStorage.setItem('phone', phoneNum);
 					window.location.href = "success.html?oid=" + res.data;
 				}
 			}, true);

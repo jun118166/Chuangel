@@ -1,5 +1,5 @@
-//var host = 'http://chuangelapi.shaoshengweb.cn/api/';
-var host = 'http://localhost:3536/api/';
+var host = 'http://chuangelapi.shaoshengweb.cn/api/';
+//var host = 'http://localhost:3536/api/';
 
 function getData(param, callback, isfull) {
 	if($.isArray(param)) param = param.join('/');
@@ -10,6 +10,9 @@ function getData(param, callback, isfull) {
 		success: function(res) {
 			if(isfull) callback(res);
 			else callback(res.data);
+		},
+		error: function(res) {
+			alert(JSON.stringify(res));
 		}
 	});
 }
@@ -183,7 +186,7 @@ $(function() {
 	var url = arry[arry.length - 1];
 	if(url.indexOf('?') > 0) url = url.substr(0, url.indexOf('?'));
 	if(urls.indexOf(url) < 0 && url) {
-		var phoneNo = sessionStorage.getItem('phone');
+		var phoneNo = localStorage.getItem('phone');
 		if(!phoneNo) jump('login.html');
 	}
 });

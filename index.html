@@ -281,7 +281,7 @@
 		});
 
 		$(function() {
-			var phone = sessionStorage.getItem('phone');
+			var phone = localStorage.getItem('phone');
 			if(phone) {
 				$('#txtMobile').val(phone);
 				$('#txtMobile').attr('readonly', 'true');
@@ -414,12 +414,14 @@
 				param.Street = address;
 				param.Status = '5';
 				param.Cost_status = '0';
+				param.Total_cost = '0';
+				param.ExpressType = '02';
 				postData('order/create', param, function(res) {
 					if(res.code == "0") {
 						$('.err_coupons').text(res.mes);
 						$('.err_coupons').show();
 					} else {
-						sessionStorage.setItem('phone', phoneNum);
+						localStorage.setItem('phone', phoneNum);
 						window.location.href = "success.html?&oid=" + res.data;
 					}
 				}, true);

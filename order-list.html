@@ -7,6 +7,25 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 		<meta content="telephone=no" name="format-detection">
 		<link rel="stylesheet" href="css/style.rem.css" />
+		<style>
+			.pingjiacgBtn {
+				display: inline-block;
+				width: 50%;
+				float: left;
+				background: url(img/shuxian.png) right top no-repeat;
+				background-size: 1px 100%;
+			}
+			
+			.msg input {
+				height: 2.25rem;
+				border: 0;
+				border-radius: 6px;
+				color: #333;
+				text-indent: 0.75rem;
+				font-size: 0.7rem;
+				width: 80%;
+			}
+		</style>
 		<script type="text/javascript">
 			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
 				function c() {
@@ -39,9 +58,17 @@
 						<a v-if="item.Status!=0" href="javascript:void(0)" class="qxddBtn" @click="cancel(item.Id)">取消订单</a>
 						<span v-if="item.Cost_status==1">{{item.coststatusname}}</span>
 						<a v-if="item.Cost_status!=1&&item.Status!=0" href="javascript:void(0)" class="ljjfBtn" datas="{{item.Id}}">支付完成</a>
+						<a v-if="!item.ExpressNo&&item.ExpressType=='01'" href="javascript:void(0)" class="ljjfBtn" @click="showExpress(item.Id)" datas="{{item.Id}}">录入快递</a>
 					</div>
 				</li>
 			</ul>
+			<div class="quxiaoTip" style="display: none;">
+				<div class="quxiaomain">
+					<p class="msg"><input id="expressNo" placeholder="请输入快递单号"></p>
+					<a href="javascript:void(0)" class="pingjiacgBtn" @click="close">取消</a>
+					<a href="javascript:void(0)" class="pingjiacgBtn" @click="writeExpress">确定</a>
+				</div>
+			</div>
 		</div>
 	</body>
 	<script src="js/jquery-1.7.2.min.js"></script>
@@ -51,12 +78,13 @@
 		var vm = new Vue({
 			el: "#app",
 			data: {
-				items: []
+				items: [],
+				chooseOrderId: ''
 			},
 			methods: {
 				loadData: function() {
 					var self = this;
-					getData('order/getByPhone?phone=' + sessionStorage.getItem('phone'), function(res) {
+					getData('order/getByPhone?phone=' + localStorage.getItem('phone'), function(res) {
 						res.map(function(i) {
 							i.statusName = getstatus(i.Status);
 							i.img = 'img/' + getstatusImg(i.Status) + '.png';
@@ -71,6 +99,31 @@
 				},
 				cancel: function(e) {
 					jump("cancel.html?oid=" + e);
+				},
+				close: function() {
+					$('.quxiaoTip').hide();
+				},
+				showExpress: function(e) {
+					$('.quxiaoTip').show();
+					this.chooseOrderId = e;
+				},
+				writeExpress: function() {
+					var expressNo = $('#expressNo').val();
+					if(!expressNo) {
+						alert('请输入快递单号');
+						return true;
+					}
+					var param = {
+						Id: this.chooseOrderId,
+						ExpressNo: expressNo
+					};
+					var self = this;
+					postData('Order/WriteExpressNo', param, function() {
+						alert('填写成功!');
+						$('.quxiaoTip').hide();
+						self.items = [];
+						self.loadData();
+					});
 				}
 			},
 			ready: function() {

@@ -12,6 +12,44 @@
 				height: auto;
 				padding: .5rem .75rem;
 			}
+			
+			.quxiaomain {
+				top: 30%;
+				left: 5%;
+				width: 90%;
+				height: 11.5rem;
+			}
+			
+			.quxiaomain ul {
+				margin: 1rem 0;
+			}
+			
+			.quxiaomain ul li select,
+			input {
+				display: block;
+				height: 2.25rem;
+				font-size: 0.8rem;
+				line-height: 2.25rem;
+				margin: 0 auto;
+				width: 80%;
+				border: none;
+				margin-top: .25rem;
+				border-radius: 6px;
+				text-indent: 1rem;
+			}
+			
+			.quxiaomain ul li option {
+				text-align: center;
+			}
+			
+			.pingjiacgBtn {
+				display: inline-block;
+				width: 50%;
+				float: left;
+				background: url(img/shuxian.png) right top no-repeat;
+				background-size: 1px 100%;
+				border-top: 1px solid #dcdcdc;
+			}
 		</style>
 		<script>
 			window.addEventListener(('orientationchange' in window ? 'orientationchange' : 'resize'), (function() {
@@ -27,25 +65,13 @@
 	</head>
 
 	<body>
-		<div class="wrapper" id="app">
+		<div class="wrapper" id="app" v-cloak>
 			<div>
 				<ul class="wodedingdan">
-					<li>
+					<li v-for="item in items">
 						<div class="dingdanxq">
-							<p>开户银行：<span>交通银行</span></p>
-							<p>银行账号：<span>6222600110047273276</span></p>
-						</div>
-					</li>
-					<li>
-						<div class="dingdanxq">
-							<p>开户银行：<span>交通银行</span></p>
-							<p>银行账号：<span>6222600110047273276</span></p>
-						</div>
-					</li>
-					<li>
-						<div class="dingdanxq">
-							<p>开户银行：<span>交通银行</span></p>
-							<p>银行账号：<span>6222600110047273276</span></p>
+							<p>开户银行：<span>{{item.Bank}}</span></p>
+							<p>银行账号：<span>{{item.Account}}</span></p>
 						</div>
 					</li>
 				</ul>
@@ -53,17 +79,19 @@
 			<div class="xiayibu">
 				<a href="javascript:;" @click="cashapply(courierid)">添加</a>
 			</div>
-			<div class="quxiaoTip">
+			<div class="quxiaoTip" style="display: none;">
 				<div class="quxiaomain">
 					<ul>
 						<li>
-							<select>
-								<option>--请选择开户行--</option>
+							<select id="bankId">
+								<option v-for="bank in banks" :value="bank.Id">{{bank.ItemName}}</option>
 							</select>
 						</li>
-						<li><input type="text" placeholder="请输入银行账号" /></li>
-						<li><input type="text" placeholder="请输入账户姓名" /></li>
+						<li><input type="text" placeholder="请输入银行账号" id="account" /></li>
+						<li><input type="text" placeholder="请输入账户姓名" id="name" /></li>
 					</ul>
+					<a href="javascript:void(0)" class="pingjiacgBtn" @click="cancel">取消</a>
+					<a href="javascript:void(0)" class="pingjiacgBtn" @click="addCard">确定</a>
 				</div>
 			</div>
 		</div>
@@ -72,6 +100,62 @@
 	<script src="js/base.js"></script>
 	<script src="js/vue.min.js"></script>
 	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				items: [],
+				banks: [],
+				repairMan: JSON.parse(localStorage.getItem('repairMan'))
+			},
+			methods: {
+				cancel: function() {
+					$('.quxiaoTip').hide();
+				},
+				cashapply: function(e) {
+					$('.quxiaoTip').show();
+				},
+				loadData: function() {
+					var self = this;
+					if(this.repairMan) {
+						getData('Account/GetList?courierid=' + this.repairMan.Id, function(res) {
+							self.items = res.accounts;
+							self.banks = res.banks;
+						});
+					}
+				},
+				addCard: function() {
+					var bankId = $('#bankId').val();
+					var bank = $('#bankId').find("option:selected").text();
+					var account = $('#account').val();
+					var name = $('#name').val();
+					if(!account) {
+						alert('请输入银行账号');
+						return true;
+					}
+					if(!name) {
+						alert('请输入账户姓名');
+						return true;
+					}
+					var param = {
+						CourierId: this.repairMan.Id,
+						Name: name,
+						BankId: bankId,
+						Bank: bank,
+						Account: account,
+						IsDefault: true
+					};
+					var self = this;
+					postData('Account/Create', param, function(res) {
+						$('.quxiaoTip').show();
+						self.itemds = [];
+						self.loadData();
+					});
+				}
+			},
+			ready: function() {
+				this.loadData();
+			}
+		});
 	</script>
 
 </html>

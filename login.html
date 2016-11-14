@@ -103,8 +103,8 @@
 						$('.err_login_msg').text(data.msg);
 						$('.err_login_msg').show();
 					} else {
-						sessionStorage.setItem('phone', phoneNum);
-						sessionStorage.setItem('repairMan', JSON.stringify(data.data));
+						localStorage.setItem('phone', phoneNum);
+						localStorage.setItem('repairMan', JSON.stringify(data.data));
 						location.href = 'usercenter.html';
 					}
 				}, true);

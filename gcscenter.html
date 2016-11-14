@@ -54,13 +54,13 @@
 			},
 			methods: {},
 			ready: function() {
-				this.repairman = JSON.parse(sessionStorage.getItem('repairMan'));
+				this.repairman = JSON.parse(localStorage.getItem('repairMan'));
 			}
 		});
 		$(function() {
 			//判断是否登陆
 			$('.yidenglu').hide();
-			var phone = sessionStorage.getItem('phone');
+			var phone = localStorage.getItem('phone');
 			if(phone) {
 				$('.yidenglu p').html('欢迎您,' + phone);
 				$('.yidenglu').show();
@@ -68,7 +68,7 @@
 			}
 
 			$('.zhuxiao a').click(function() {
-				sessionStorage.setItem('phone', '');
+				localStorage.setItem('phone', '');
 				jump('login.html');
 			});
 		});

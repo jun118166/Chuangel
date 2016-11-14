@@ -74,7 +74,7 @@
 			}
 			$('.err_comment').hide();
 			var param = {};
-			param.Phone = sessionStorage.getItem('phone');
+			param.Phone = localStorage.getItem('phone');
 			param.Content = content;
 			postData('Feedback/Create', param, function(res) {
 				$(".msg").text(res.msg);
