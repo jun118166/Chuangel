@@ -98,14 +98,14 @@
 				}
 				var customer = {};
 				customer.Phone = phoneNum;
-				postData('customer/Create', customer, function(data) {
+				postData('customer/Login', customer, function(data) {
 					if(data.code == "0") {
 						$('.err_login_msg').text(data.msg);
 						$('.err_login_msg').show();
 					} else {
 						localStorage.setItem('phone', phoneNum);
 						localStorage.setItem('repairMan', JSON.stringify(data.data));
-						location.href = 'usercenter.html';
+						location.href = 'index.html';
 					}
 				}, true);
 			});

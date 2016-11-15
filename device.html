@@ -236,18 +236,27 @@
 				var troubleDesc = $('#desc_' + troubleId).find('p')[0].innerHTML.replace('维修方案：', '');
 				var arrayTrouble = JSON.parse(localStorage.getItem("arrayTrouble"));
 				if(!arrayTrouble) arrayTrouble = [];
-				arrayTrouble.push({
-					colorId: colorId,
-					troubleId: troubleId,
-					productId: productId,
-					price: price,
-					troubleName: troubleName,
-					troubleDesc: troubleDesc,
-					product: $('.sbmc').text() + $('#show_choose_color').text()
+				var flag = true;
+				arrayTrouble.map(function(i) {
+					if(i.troubleId == troubleId) {
+						alert('该故障已填加，其选择其他故障');
+						flag = false;
+					}
 				});
-				localStorage.setItem('productInfo', JSON.stringify(vm.productInfo));
-				localStorage.setItem("arrayTrouble", JSON.stringify(arrayTrouble));
-				location.href = "device-method.html";
+				if(flag) {
+					arrayTrouble.push({
+						colorId: colorId,
+						troubleId: troubleId,
+						productId: productId,
+						price: price,
+						troubleName: troubleName,
+						troubleDesc: troubleDesc,
+						product: $('.sbmc').text() + $('#show_choose_color').text()
+					});
+					localStorage.setItem('productInfo', JSON.stringify(vm.productInfo));
+					localStorage.setItem("arrayTrouble", JSON.stringify(arrayTrouble));
+					location.href = "device-method.html";
+				}
 			});
 			$(".wait_choose_color").click(function() {
 				$('.insurance_choose').parent().hide();

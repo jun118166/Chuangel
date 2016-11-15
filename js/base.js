@@ -1,5 +1,5 @@
-var host = 'http://chuangelapi.shaoshengweb.cn/api/';
-//var host = 'http://localhost:3536/api/';
+//var host = 'http://chuangelapi.shaoshengweb.cn/api/';
+var host = 'http://localhost:3536/api/';
 
 function getData(param, callback, isfull) {
 	if($.isArray(param)) param = param.join('/');

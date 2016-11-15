@@ -128,7 +128,7 @@ footer li{float:left;width:33.3%;height:1.75rem;font-size:0.65rem;line-height:1.
 .xiayibu .gragbg,.xiayibu .gragbg:hover,.xiayibu1 .gragbg,.xiayibu1 .gragbg:hover{background-color:#ccc}
 .sjxx dl{display:none}
 .sjxx dt{position:relative;clear:both;overflow:hidden;padding:0.65rem 0.5rem 0.65rem 0.5rem;min-height:1.2rem;background-color:#fff;color:#333;font-size:0.75rem;line-height:1.2rem}
-.sjxx dt span{float:left;padding-left:0.75rem;width:5rem;background:url(../img/dian.png) left center no-repeat;background-size:0.3rem 0.3rem}
+.sjxx dt span{/*float:left;*/padding-left:0.75rem;width:5rem;background:url(../img/dian.png) left center no-repeat;background-size:0.3rem 0.3rem}
 .sjxx dt a,.sjxx dt strong{float:right;padding-right:0.75rem;width:8rem;background:url(../img/xiugai.png) right center no-repeat;background-size:0.35rem 0.6rem;color:#333;text-align:right;font-weight:700;}
 .sjxx dd{position:relative;clear:both;padding:0 0 0.5rem 0.5rem;background-color:#fff}
 .sjxx dd ul{overflow:hidden}
